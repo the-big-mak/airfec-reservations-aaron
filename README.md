@@ -1,19 +1,19 @@
-# Project Name
+# Airfec
 
-> Project description
+> Inspired by Airbnb.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/the-big-mak/airfec-photos-vlad
+  - https://github.com/the-big-mak/airfec-description-brian
+  - https://github.com/the-big-mak/airfec-reviews-justus
+  - https://github.com/the-big-mak/airfec-proxy-aaron
 
 ## Table of Contents
 
 1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
+2. [Requirements](#requirements)
+3. [Development](#development)
 
 ## Usage
 

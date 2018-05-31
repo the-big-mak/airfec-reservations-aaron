@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Airfec - Reservations Module",
+  "version": "1.0",
+  "description": "A reservations module for Airfec, a website inpsired by Airbnb.",
+  "author": "Aaron Tesfai",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
