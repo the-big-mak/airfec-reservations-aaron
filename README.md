@@ -1,6 +1,6 @@
-# Airfec
+# AirFeC
 
-> Inspired by Airbnb.
+> Inspired by AirBnB.
 
 ## Related Projects
 
