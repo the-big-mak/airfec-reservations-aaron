@@ -4,44 +4,43 @@ CREATE DATABASE airFeCReservations;
 USE airFeCReservations;
 
 CREATE TABLE listings (
-  roomId INT NOT NULL PRIMARY KEY,
-  ratingsScore DECIMAL(2,1),
-  ratingsCount SMALLINT,
-  maxGuests TINYINT,
-  minNightStay SMALLINT
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  avg_rating DECIMAL(2, 1),
+  total_ratings SMALLINT,
+  max_guests TINYINT,
+  min_night_stay SMALLINT,
+  cleaning_fee SMALLINT DEFAULT 0,
+  addtl_guest_fee INT DEFAULT 0
 );
 
-CREATE TABLE availabilities (
-  roomId INT NOT NULL,
-  date date,
-  pricePerNight SMALLINT,
-  cleaningFee SMALLINT,
-  serviceFee SMALLINT,
-  FOREIGN KEY (roomId)
-    REFERENCES listings(roomId)
+CREATE TABLE nights (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  room_id INT,
+  avail_date date NOT NULL,
+  rate SMALLINT NOT NULL,
+  FOREIGN KEY (room_id) REFERENCES listings(id)
+);
+
+CREATE TABLE guests (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE bookings (
-    bookingId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    roomId INT NOT NULL,
-    checkInDate date,
-    checkOutDate data,
-    roomPrice SMALLINT,
-    cleaningFees SMALLINT,
-    serviceFees SMALLINT,
-    adultsReserved TINYINT,
-    childsReserved TINYINT,
-    infantsReserved TINYINT,
-    FOREIGN KEY (roomId)
-      REFERENCES listings(roomId)
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  room_id INT,
+  guest_id INT,
+  check_in date NOT NULL,
+  check_out date NOT NULL,
+  base_price SMALLINT,
+  cleaning_fee SMALLINT,
+  service_fee SMALLINT,
+  adults TINYINT NOT NULL DEFAULT 0,
+  children TINYINT NOT NULL DEFAULT 0,
+  infants TINYINT NOT NULL DEFAULT 0,
+  addtl_guest_fee INT,
+  FOREIGN KEY (room_id) REFERENCES listings(id),
+  FOREIGN KEY (guest_id) REFERENCES guests(id)
 );
-
-
-INSERT INTO listings (roomId, ratingsScore, ratingsCount, maxGuests, minNightStay) VALUES (123456, 4.5, 460, 4, 3);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-05', 215, 23, 23);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-06', 215, 23, 23);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-07', 245, 23, 23);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-12', 245, 23, 23);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-13', 245, 23, 23);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-14', 195, 23, 23);
-INSERT INTO availabilities (roomId, date, pricePerNight, cleaningFee, serviceFee) VALUES (123456, '2018-12-15', 245, 23, 23);
