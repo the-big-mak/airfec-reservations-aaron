@@ -6,8 +6,8 @@ const getAvailNights = roomId => {
   const queryStr = `SELECT avail_date, rate 
                     FROM nights 
                     WHERE id = ? AND 
-                    avail_date >= CURDATE() 
-                    AND is_avail = 1`;
+                    avail_date >= CURDATE() AND 
+                    is_avail = 1`;
   return new Promise((resolve, reject) => {
     db.query(queryStr, roomId, (err, data) => err ? reject(err) : resolve(data));
   });
@@ -31,8 +31,8 @@ const insertBooking = bookingObj => {
   const queryStr = `INSERT INTO bookings SET ?`;
   return new Promise((resolve, reject) => {
     db.query(queryStr, bookingObj, (err, data) => err ? reject(err) 
-          : updateAvailNights(bookingObj.room_id, data.id)
-              .then(err => err ? reject(err) : resolve()));
+        : updateAvailNights(bookingObj.room_id, data.id)
+            .then(err => err ? reject(err) : resolve()));
   });
 };
 
