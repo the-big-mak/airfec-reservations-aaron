@@ -2,17 +2,17 @@ const db = require('./../database/index');
 
 module.exports = {
   get: {
-    availNights = (req, res) => {
-      db.getAvailNights(req.params.id)
-        .then(data => res.json(data.data))
-        .catch(err => res.sendStatus(500));
+    availNights: function (req, res) {
+      return db.getAvailNights(req.params.id)
+        .then(data => res.json(data))
+        .catch(err => res.status(500).send(err));
     }
   },
   post: {
-    booking = (req, res) => {
+    booking: function (req, res) {
       let booking = req.body;
       booking.room_id = req.params.id;
-      db.insertBooking(booking)
+      return db.insertBooking(booking)
         .then(() => res.sendStatus(201))
         .catch(err => res.status(400).send(err));
     }
