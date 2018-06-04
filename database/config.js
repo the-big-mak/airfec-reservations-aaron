@@ -1,4 +1,5 @@
 module.exports = {
-  user: 'root', 
+  user: 'root',
+  password: 'italy',
   database: 'airFeCReservations'
 };
