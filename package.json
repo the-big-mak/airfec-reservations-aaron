@@ -1,17 +1,38 @@
 {
-  "name": "Airfec - Reservations Module",
-  "version": "1.0",
-  "description": "A reservations module for Airfec, a website inpsired by Airbnb.",
-  "author": "Aaron Tesfai",
-  "license": "",
+  "name": "AirFeC-Reservations-Aaron",
+  "version": "1.0.0",
+  "description": "A reservations module for AirFeC, a website inpsired by Airbnb.",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "webpack": "^4.10.2"
+  },
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "react-dev": "webpack -d --watch"
+  },
   "engines": {
     "node": ">=6.13.0"
   },
-  "scripts": {
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-big-mak/airfec-reservations-aaron.git"
   },
-  "dependencies": {
+  "author": "Aaron Tesfai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-big-mak/airfec-reservations-aaron/issues"
   },
-  "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-  }
+  "homepage": "https://github.com/the-big-mak/airfec-reservations-aaron#readme"
 }
