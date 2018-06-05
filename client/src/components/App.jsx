@@ -1,27 +1,60 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Reservation from './Reservations'
+import Reservations from './Reservations';
 const ROOM = 42;
+const STARS = 5;
+const RATINGS = 292;
+const NIGHTLYRATE = 375;
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      availNights: []
-    }
+      avgNightlyRate: NIGHTLYRATE,
+      stars: STARS,
+      totalRatings: RATINGS,
+      availNights: [],
+      maxGuests: 0,
+      minNightStay: 0,
+      cleaningFee: 0,
+      addtlGuestFee: 0
+    };
   }
   componentDidMount () {
-    this.fetch(ROOM);
+    this.fetchDetailsAndAvailNights(ROOM);
   }
-  fetch (roomId) {
+  fetchDetailsAndAvailNights (roomId) {
     axios.get(`/rooms/${roomId}`)
-      .then(db => this.setState({availNights: db.data}))
+      .then(db => this.updateState(db.data))
       .catch(err => console.error(err));
   }
-  render() {
+  updateState (data) {
+    const { avg_rating, total_ratings, max_guests, min_night_stay, cleaning_fee, addtl_guest_fee } = data[0][0];
+    const avgNightlyRate = data[1].reduce((acc, night) => acc = night.rate > acc ? night.rate : acc, 0);
+    this.setState({
+      stars: avg_rating, 
+      totalRatings: total_ratings,
+      avgNightlyRate,
+      availNights: data[1],
+      maxGuests: max_guests,
+      minNightStay: min_night_stay,
+      cleaningFee: cleaning_fee,
+      addtlGuestFee: addtl_guest_fee
+    });
+  }
+  render () {
     return (
       <div>
-        <Reservation />
+        <Reservations 
+          avgNightlyRate={this.state.avgNightlyRate}
+          stars={this.state.stars} 
+          totRatings={this.state.totalRatings} 
+          availNights={this.state.availNights}
+          maxGuests={this.state.maxGuests}
+          minNightStay={this.state.minNightStay}
+          cleaningFee={this.state.cleaningFee}
+          addtlGuestFee={this.state.addtlGuestFee}
+        />
       </div>
     );
   }
