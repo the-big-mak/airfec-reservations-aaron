@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Reservations from './Reservations';
 const ROOM = 42;
-const STARS = 5;
-const RATINGS = 292;
-const NIGHTLYRATE = 375;
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      avgNightlyRate: NIGHTLYRATE,
-      stars: STARS,
-      totalRatings: RATINGS,
+      avgNightlyRate: 0,
+      stars: 0,
+      totalRatings: 0,
       availNights: [],
       maxGuests: 0,
       minNightStay: 0,
