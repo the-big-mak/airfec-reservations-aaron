@@ -10,7 +10,7 @@ const Stars = ({ stars, totRatings }) => (
           {[...Array(Math.floor(stars))].map((el, idx) => <Star key={idx}/>)}
         </SpanStar>
         <SpanNumberOfRatings>
-          
+          {totRatings}
         </SpanNumberOfRatings>
       </span>
     </Button>
@@ -41,7 +41,16 @@ const SpanStar = styled.span `
 `;
 
 const SpanNumberOfRatings = styled.span `
-
+  color: #484848;
+  display: inline;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 16px;
+  margin: 0px;
+  padding: 2px;
+  word-wrap: break-word;
 `;
 
 export default Stars;
