@@ -1,9 +1,9 @@
 {
-  "author": "Aaron Tesfai",
-  "description": "A reservations module for AirFeC, a website inpsired by Airbnb.",
-  "main": "index.js",
   "name": "AirFeC-Reservations-Aaron",
+  "description": "A reservations module for AirFeC, a website inpsired by Airbnb.",
+  "author": "Aaron Tesfai",
   "version": "1.0.0",
+  "main": "index.js",
   "engines": {
     "node": ">=6.13.0"
   },
