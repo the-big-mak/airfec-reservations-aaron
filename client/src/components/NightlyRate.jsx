@@ -26,8 +26,7 @@ const RateSpan = styled.span`
   line-height: 26px;
   letter-spacing: normal;
   margin: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding: 2px;
   word-wrap: break-word;
 `;
 
