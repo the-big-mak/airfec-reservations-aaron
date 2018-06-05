@@ -1,12 +1,11 @@
 const mysql = require('mysql');
-const mysqlConfig = require('./config');
+const mysqlConfig = require('./config/config');
 const db = mysql.createConnection(mysqlConfig);
 
 const getAvailNights = roomId => {
   const queryStr = `SELECT avail_date, rate 
                     FROM nights 
                     WHERE id = ? AND 
-                    avail_date >= CURDATE() AND 
                     is_avail = 1`;
   return new Promise((resolve, reject) => {
     db.query(queryStr, roomId, (err, data) => err ? reject(err) : resolve(data));

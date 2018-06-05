@@ -1,3 +1,3 @@
 node_modules
-database/config.js
-client/dist
+database/config
+public/bundle.js
