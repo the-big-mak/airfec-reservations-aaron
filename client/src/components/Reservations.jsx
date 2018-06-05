@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import NightlyRateAndStars from './NightlyRateAndStars';
 import BookItForm from './BookItForm';
+import ReportListing from './ReportListing'
 
-const Reservations = ({ avgNightlyRate, stars, totRatings, availNights, maxGuests, minNightStay, cleaningFee, addtlGuestFee }) => (
+const Reservations = ({ avgNightlyRate, stars, totRatings, availNights, maxGuests, minNightStay, cleaningFee, addtlGuestFee, postBooking }) => (
   <DivOuterContainer>
     <DivInnerContainer>
       <DivInnerMostContainer>
@@ -17,9 +18,11 @@ const Reservations = ({ avgNightlyRate, stars, totRatings, availNights, maxGuest
           maxGuests={maxGuests} 
           minNightStay={minNightStay} 
           addtlGuestFee={addtlGuestFee}
+          postBooking={postBooking}
         />
       </DivInnerMostContainer>
     </DivInnerContainer>
+    <ReportListing />
   </DivOuterContainer>
 );
 
