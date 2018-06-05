@@ -16,6 +16,7 @@ class App extends Component {
       cleaningFee: 0,
       addtlGuestFee: 0
     };
+    this.postBooking = this.postBooking.bind(this);
   }
   componentDidMount () {
     this.fetchDetailsAndAvailNights(ROOM);
@@ -24,6 +25,9 @@ class App extends Component {
     axios.get(`/rooms/${roomId}`)
       .then(db => this.updateState(db.data))
       .catch(err => console.error(err));
+  }
+  postBooking () {
+
   }
   updateState (data) {
     const { avg_rating, total_ratings, max_guests, min_night_stay, cleaning_fee, addtl_guest_fee } = data[0][0];
@@ -51,6 +55,7 @@ class App extends Component {
           minNightStay={this.state.minNightStay}
           cleaningFee={this.state.cleaningFee}
           addtlGuestFee={this.state.addtlGuestFee}
+          postBooking={this.postBooking}
         />
       </div>
     );
