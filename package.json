@@ -1,8 +1,16 @@
 {
-  "name": "AirFeC-Reservations-Aaron",
-  "version": "1.0.0",
+  "author": "Aaron Tesfai",
   "description": "A reservations module for AirFeC, a website inpsired by Airbnb.",
   "main": "index.js",
+  "name": "AirFeC-Reservations-Aaron",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "react-dev": "webpack -d --watch"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.3",
@@ -28,18 +36,10 @@
     "webpack": "^4.10.2",
     "webpack-cli": "^3.0.2"
   },
-  "scripts": {
-    "start": "nodemon server/server.js",
-    "react-dev": "webpack -d --watch"
-  },
-  "engines": {
-    "node": ">=6.13.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/the-big-mak/airfec-reservations-aaron.git"
   },
-  "author": "Aaron Tesfai",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/the-big-mak/airfec-reservations-aaron/issues"
