@@ -16,7 +16,7 @@ class App extends Component {
   fetch (roomId) {
     axios.get(`/rooms/${roomId}`)
       .then(db => this.setState({availNights: db.data}))
-      .catch(console.err);
+      .catch(err => console.error(err));
   }
   render() {
     return (
