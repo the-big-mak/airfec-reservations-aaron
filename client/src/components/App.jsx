@@ -14,7 +14,7 @@ class App extends Component {
       maxGuests: 0,
       minNightStay: 0,
       cleaningFee: 0,
-      addtlGuestFee: 0
+      addtlGuestFee: 0,
     };
     this.postBooking = this.postBooking.bind(this);
   }
@@ -40,7 +40,7 @@ class App extends Component {
       maxGuests: max_guests,
       minNightStay: min_night_stay,
       cleaningFee: cleaning_fee,
-      addtlGuestFee: addtl_guest_fee
+      addtlGuestFee: addtl_guest_fee,
     });
   }
   render () {
