@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Reservations from './Reservations';
-const ROOM = 42;
+const ROOM = 22;
 
 class App extends Component {
   constructor() {
