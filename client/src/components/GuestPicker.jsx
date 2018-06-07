@@ -44,7 +44,7 @@ const DivOuterContainer = styled.div`
 `;
 
 const LabelOuterContainer = styled.label`
-  display:block;
+  display: block;
   font-size: 17px;
   font-weight: 200;
   margin: 0px;
