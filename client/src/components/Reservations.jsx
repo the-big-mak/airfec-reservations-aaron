@@ -1,23 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import NightlyRateAndStars from './NightlyRateAndStars';
 import BookItForm from './BookItForm';
-import ReportListing from './ReportListing'
+import ReportListing from './ReportListing';
 
-const Reservations = ({ avgNightlyRate, stars, totRatings, availNights, maxGuests, minNightStay, cleaningFee, addtlGuestFee, postBooking }) => (
+const Reservations = ({
+  avgNightlyRate, stars, totRatings, availNights, maxGuests,
+  minNightStay, cleaningFee, addtlGuestFee, guestDropDownActive,
+  handleGuestDropDown, postBooking,
+}) => (
   <DivOuterContainer>
     <DivInnerContainer>
       <DivInnerMostContainer>
-        <NightlyRateAndStars 
+        <NightlyRateAndStars
           avgNightlyRate={avgNightlyRate}
-          stars={stars} 
+          stars={stars}
           totRatings={totRatings}
         />
-        <BookItForm 
-          availNights={availNights} 
-          maxGuests={maxGuests} 
-          minNightStay={minNightStay} 
+        <BookItForm
+          availNights={availNights}
+          maxGuests={maxGuests}
+          minNightStay={minNightStay}
+          cleaningFee={cleaningFee}
           addtlGuestFee={addtlGuestFee}
+          guestDropDownActive={guestDropDownActive}
+          handleGuestDropDown={handleGuestDropDown}
           postBooking={postBooking}
         />
       </DivInnerMostContainer>
@@ -25,6 +33,20 @@ const Reservations = ({ avgNightlyRate, stars, totRatings, availNights, maxGuest
     <ReportListing />
   </DivOuterContainer>
 );
+
+Reservations.propTypes = {
+  avgNightlyRate: PropTypes.number.isRequired,
+  stars: PropTypes.number.isRequired,
+  totRatings: PropTypes.number.isRequired,
+  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  maxGuests: PropTypes.number.isRequired,
+  minNightStay: PropTypes.number.isRequired,
+  cleaningFee: PropTypes.number.isRequired,
+  addtlGuestFee: PropTypes.number.isRequired,
+  guestDropDownActive: PropTypes.bool.isRequired,
+  handleGuestDropDown: PropTypes.func.isRequired,
+  postBooking: PropTypes.func.isRequired,
+};
 
 const DivOuterContainer = styled.div`
   box-sizing: border-box;
