@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const NightlyRate = ({ avgNightlyRate }) => (
@@ -9,6 +10,10 @@ const NightlyRate = ({ avgNightlyRate }) => (
     </DivInnerContainer>
   </DivOuterContainer>
 );
+
+NightlyRate.propTypes = {
+  avgNightlyRate: PropTypes.number.isRequired,
+};
 
 const DivOuterContainer = styled.div`
 `;

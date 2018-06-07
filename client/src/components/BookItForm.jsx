@@ -1,18 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import BookingButton from './BookingButton'
+import BookItFields from './BookItFields';
+import BookingButton from './BookingButton';
 
-const BookItForm = ({ availNights, maxGuests, minNightStay, cleaningFee, addtlGuestFee, postBooking }) => (
+const BookItForm = ({ guestDropDownActive, handleGuestDropDown, maxGuests }) => (
   <FormContainer>
-    <div>
-      Calendar Will Go Here
-    </div>
+    <BookItFields
+      guestDropDownActive={guestDropDownActive}
+      handleGuestDropDown={handleGuestDropDown}
+      maxGuests={maxGuests}
+    />
     <BookingButton />
     <DivNotChargedYet>
       <SmallInnerNotChargedYet>You won’t be charged yet</SmallInnerNotChargedYet>
     </DivNotChargedYet>
   </FormContainer>
 );
+
+BookItForm.propTypes = {
+  guestDropDownActive: PropTypes.bool.isRequired,
+  handleGuestDropDown: PropTypes.func.isRequired,
+  maxGuests: PropTypes.number.isRequired,
+};
 
 const FormContainer = styled.form`
 

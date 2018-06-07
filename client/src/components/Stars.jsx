@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Star from './Star'
+import Star from './Star';
 
 const Stars = ({ stars, totRatings }) => (
   <DivContainer>
     <Button>
       <span>
         <SpanStar>
-          {[...Array(Math.floor(stars))].map((el, idx) => <Star key={idx}/>)}
+          { [...Array(Math.floor(stars))].map(() => <Star key={Math.random()} />) }
         </SpanStar>
         <SpanNumberOfRatings>
           {totRatings}
@@ -16,6 +17,11 @@ const Stars = ({ stars, totRatings }) => (
     </Button>
   </DivContainer>
 );
+
+Stars.propTypes = {
+  stars: PropTypes.number.isRequired,
+  totRatings: PropTypes.number.isRequired,
+};
 
 const DivContainer = styled.div`
 
@@ -36,11 +42,11 @@ const Button = styled.button`
   -ms-user-select: auto;
 `;
 
-const SpanStar = styled.span `
+const SpanStar = styled.span`
 
 `;
 
-const SpanNumberOfRatings = styled.span `
+const SpanNumberOfRatings = styled.span`
   color: #484848;
   display: inline;
   font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
