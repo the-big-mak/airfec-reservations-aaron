@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const BookingButton = () => (
-  <Button> 
+  <Button>
     <SpanButtonText>
       <DivButtonText>Request to Book</DivButtonText>
     </SpanButtonText>
