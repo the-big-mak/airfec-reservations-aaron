@@ -50,7 +50,7 @@ const DivSecondaryLabelContainer = DivLabelContainer.extend`
   font-weight: normal;
   letter-spacing: normal;
   line-height: 18px;
-  padding-top: 4px
+  padding-top: 4px;
 `;
 
 export default GuestPickerRowLabel;
