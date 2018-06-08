@@ -9,9 +9,9 @@ const DatePickerCalendarRow = ({ week }) => (
   </TableRow>
 );
 
-// DatePickerCalendarRow.propTypes = {
-//   week: PropTypes.arrayOf(PropTypes.number).isRequired,
-// };
+DatePickerCalendarRow.propTypes = {
+  week: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 const TableRow = styled.tr`
   border-color: inherit;

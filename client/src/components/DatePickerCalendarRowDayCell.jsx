@@ -12,6 +12,7 @@ const DatePickerCalendarRowDayCell = ({ day }) => {
     </TableDayCell>
   );
 };
+
 DatePickerCalendarRowDayCell.propTypes = {
   day: PropTypes.shape({
     day: PropTypes.number,
@@ -37,5 +38,3 @@ const Span = styled.span`
 `;
 
 export default DatePickerCalendarRowDayCell;
-
-// {day ? day : (<SpanInactive>day</SpanInactive>)}
