@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import DatePicker from './DatePicker';
 import GuestPicker from './GuestPicker';
 
@@ -9,7 +8,7 @@ const BookItFields = ({
   guestDropDownActive, handleGuestDropDown, maxGuests,
   minNightStay, handleOutsideDropDownClick,
 }) => (
-  <DivContainer>
+  <div>
     <DatePicker
       availNights={availNights}
       dateDropDownActive={dateDropDownActive}
@@ -23,7 +22,7 @@ const BookItFields = ({
       maxGuests={maxGuests}
       handleOutsideDropDownClick={handleOutsideDropDownClick}
     />
-  </DivContainer>
+  </div>
 );
 
 BookItFields.propTypes = {
@@ -39,9 +38,5 @@ BookItFields.propTypes = {
   minNightStay: PropTypes.number.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
 };
-
-const DivContainer = styled.div`
-
-`;
 
 export default BookItFields;
