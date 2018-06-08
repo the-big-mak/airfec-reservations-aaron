@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const DatePickerCalendarBackForwardButton = ({ position }) => {
+const DatePickerCalendarBackForwardButton = ({ position, changeMonth }) => {
   const paths = {
     left: 'M 336.2 274.5 l -210.1 210 h 805.4 c 13 0 23 10 23 23 s -10 23 -23 23 H 126.1 l 210.1 210.1 c 11 11 11 21 0 32 c -5 5 -10 7 -16 7 s -11 -2 -16 -7 l -249.1 -249 c -11 -11 -11 -21 0 -32 l 249.1 -249.1 c 21 -21.1 53 10.9 32 32 Z',
     right: 'M 694.4 242.4 l 249.1 249.1 c 11 11 11 21 0 32 L 694.4 772.7 c -5 5 -10 7 -16 7 s -11 -2 -16 -7 c -11 -11 -11 -21 0 -32 l 210.1 -210.1 H 67.1 c -13 0 -23 -10 -23 -23 s 10 -23 23 -23 h 805.4 L 662.4 274.5 c -21 -21.1 11 -53.1 32 -32.1 Z',
   };
   return (
-    <Button type="button" position={position}>
+    <Button type="button" position={position} onClick={changeMonth}>
       <SVGContainer viewBox="0 0 1000 1000">
         <path d={paths[position]} />
       </SVGContainer>
@@ -18,6 +18,7 @@ const DatePickerCalendarBackForwardButton = ({ position }) => {
 
 DatePickerCalendarBackForwardButton.propTypes = {
   position: PropTypes.string.isRequired,
+  changeMonth: PropTypes.func.isRequired,
 };
 
 const Button = styled.button`

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
+import momentHlpr from './momentJShelpers';
 import DatePickerInputBottomCarot from './DatePickerInputBottomCarot';
 import DatePickerInputArrowRight from './DatePickerInputArrowRight';
 import DatePickerDropDown from './DatePickerDropDown';
@@ -10,13 +11,51 @@ export default class DatePicker extends Component {
   constructor(props) {
     super(props);
     this.dropDownRef = React.createRef();
+    this.state = {
+      prevDateContext: moment().subtract(1, 'month'),
+      curDateContext: moment(),
+      nextDateContext: moment().add(1, 'month'),
+      threeMonths: {
+        prev: [],
+        cur: [],
+        next: [],
+      },
+    };
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.prevMonth = this.prevMonth.bind(this);
+    this.nextMonth = this.nextMonth.bind(this);
   }
   componentDidMount() {
     document.addEventListener('click', this.handleOutsideClick, false);
+    this.getThreeMonths();
+    console.log(this.props.availNights);
   }
   componentWillUnmount() {
     document.removeEventListener('click', this.handleOutsideClick, false);
+  }
+  getThreeMonths() {
+    const threeMonths = [
+      ['prev', this.state.prevDateContext],
+      ['cur', this.state.curDateContext],
+      ['next', this.state.nextDateContext],
+    ].reduce((acc, month) => {
+      const monthWksArr = momentHlpr.getArrayOfRowWeeksArrays(month[1]);
+      const monthAndYear = momentHlpr.monthAndYear(month[1]);
+      acc[month[0]] = [monthAndYear, monthWksArr];
+      return acc;
+    }, {});
+    this.setState({ threeMonths });
+  }
+  prevMonth() {
+    ['prevDateContext', 'curDateContext', 'nextDateContext'].forEach(el => this.changeMonth(el, 'subtract'));
+  }
+  nextMonth() {
+    ['prevDateContext', 'curDateContext', 'nextDateContext'].forEach(el => this.changeMonth(el, 'add'));
+  }
+  changeMonth(dc, type) {
+    let dateContext = { ...this.state[dc] };
+    dateContext = moment(dateContext)[type](1, 'month');
+    this.setState({ [dc]: dateContext }, () => this.getThreeMonths());
   }
   handleOutsideClick(e) {
     if (this.props.dateDropDownActive.checkIn || this.props.dateDropDownActive.checkOut) {
@@ -66,7 +105,14 @@ export default class DatePicker extends Component {
             </DivCheckInOutContainer>
           </DivPickerInnerContainer>
           {(dateDropDownActive.checkIn || dateDropDownActive.checkOut) &&
-            <DatePickerDropDown availNights={availNights} minNightStay={minNightStay} />}
+            <DatePickerDropDown
+              availNights={availNights}
+              minNightStay={minNightStay}
+              prevMonth={this.prevMonth}
+              nextMonth={this.nextMonth}
+              threeMonths={this.state.threeMonths}
+            />
+          }
         </DivPickerOuterContainer>
       </DivContainer>
     );
