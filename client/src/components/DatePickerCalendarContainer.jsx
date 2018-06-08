@@ -5,7 +5,9 @@ import DatePickerCalendarHeaderDayOfWkItem from './DatePickerCalendarHeaderDayOf
 import DatePickerCalendarBackForwardButton from './DatePickerCalendarBackForwardButton';
 import DatePickerCalendarBody from './DatePickerCalendarBody';
 
-const DatePickerCalendarContainer = ({ availNights }) => (
+const DatePickerCalendarContainer = ({
+  availNights, prevMonth, nextMonth, threeMonths,
+}) => (
   <DivOuterContainer>
     <DivInnerContainerHeader>
       <DivInnerContainerHeaderInner>
@@ -17,11 +19,20 @@ const DatePickerCalendarContainer = ({ availNights }) => (
     </DivInnerContainerHeader>
     <DivInnerContainerBody>
       <DivButtonsContainer>
-        <DatePickerCalendarBackForwardButton position="left" />
-        <DatePickerCalendarBackForwardButton position="right" />
+        <DatePickerCalendarBackForwardButton
+          position="left"
+          changeMonth={prevMonth}
+        />
+        <DatePickerCalendarBackForwardButton
+          position="right"
+          changeMonth={nextMonth}
+        />
       </DivButtonsContainer>
       <DivCalendarBodyContainer>
-        <DatePickerCalendarBody availNights={availNights} />
+        <DatePickerCalendarBody
+          availNights={availNights}
+          threeMonths={threeMonths}
+        />
       </DivCalendarBodyContainer>
     </DivInnerContainerBody>
   </DivOuterContainer>
@@ -29,7 +40,15 @@ const DatePickerCalendarContainer = ({ availNights }) => (
 
 DatePickerCalendarContainer.propTypes = {
   availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  prevMonth: PropTypes.func.isRequired,
+  nextMonth: PropTypes.func.isRequired,
+  threeMonths: PropTypes.shape({
+    prev: PropTypes.array,
+    cur: PropTypes.array,
+    next: PropTypes.array,
+  }).isRequired,
 };
+
 const DivOuterContainer = styled.div`
   width: 318px;
 `;
