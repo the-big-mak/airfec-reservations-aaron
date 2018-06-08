@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Star from './Star';
 
-const Stars = ({ stars, totRatings }) => (
-  <DivContainer>
-    <Button>
-      <span>
-        <SpanStar>
-          { [...Array(Math.floor(stars))].map(() => <Star key={Math.random()} />) }
-        </SpanStar>
-        <SpanNumberOfRatings>
-          {totRatings}
-        </SpanNumberOfRatings>
-      </span>
-    </Button>
-  </DivContainer>
-);
+const Stars = ({ stars, totRatings }) => {
+  const roundedStars = Math.round(stars * 2) / 2;
+  const halfStar = Number.isInteger(roundedStars) ? null : <Star type="half" />;
+  return (
+    <DivContainer>
+      <Button>
+        <span>
+          <SpanStar>
+            { [...Array(Math.round(stars))].map(() => <Star key={Math.random()} type="whole" />) }
+            {halfStar}
+          </SpanStar>
+          <SpanNumberOfRatings>
+            {totRatings}
+          </SpanNumberOfRatings>
+        </span>
+      </Button>
+    </DivContainer>
+  );
+}
 
 Stars.propTypes = {
   stars: PropTypes.number.isRequired,
