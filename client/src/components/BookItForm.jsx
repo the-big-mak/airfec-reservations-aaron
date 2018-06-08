@@ -9,7 +9,7 @@ const BookItForm = ({
   guestDropDownActive, handleGuestDropDown, maxGuests,
   minNightStay, handleOutsideDropDownClick,
 }) => (
-  <FormContainer>
+  <form>
     <BookItFields
       availNights={availNights}
       dateDropDownActive={dateDropDownActive}
@@ -24,7 +24,7 @@ const BookItForm = ({
     <DivNotChargedYet>
       <SmallInnerNotChargedYet>You won’t be charged yet</SmallInnerNotChargedYet>
     </DivNotChargedYet>
-  </FormContainer>
+  </form>
 );
 
 BookItForm.propTypes = {
@@ -40,10 +40,6 @@ BookItForm.propTypes = {
   minNightStay: PropTypes.number.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
 };
-
-const FormContainer = styled.form`
-
-`;
 
 const DivNotChargedYet = styled.div`
   margin-top: 8px;
