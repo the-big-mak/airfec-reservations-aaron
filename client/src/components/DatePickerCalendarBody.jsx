@@ -3,24 +3,35 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DatePickerCalendarMonth from './DatePickerCalendarMonth';
 
-const DatePickerCalendarBody = ({ availNights }) => {
-  return (
-    <DivOuterContainer>
-      <DivPrevMonthContainer>
-        <DatePickerCalendarMonth month="2018-05-01" />
-      </DivPrevMonthContainer>
-      <DivCurMonthContainer>
-        <DatePickerCalendarMonth month="2018-06-01" />
-      </DivCurMonthContainer>
-      <DivNextMonthContainer>
-        <DatePickerCalendarMonth month="2018-07-01" />
-      </DivNextMonthContainer>
-    </DivOuterContainer>
-  );
-}
+const DatePickerCalendarBody = ({ threeMonths }) => (
+  <DivOuterContainer>
+    <DivPrevMonthContainer>
+      <DatePickerCalendarMonth
+        monthYear={threeMonths.prev[0]}
+        monthWeekRows={threeMonths.prev[1]}
+      />
+    </DivPrevMonthContainer>
+    <DivCurMonthContainer>
+      <DatePickerCalendarMonth
+        monthYear={threeMonths.cur[0]}
+        monthWeekRows={threeMonths.cur[1]}
+      />
+    </DivCurMonthContainer>
+    <DivNextMonthContainer>
+      <DatePickerCalendarMonth
+        monthYear={threeMonths.next[0]}
+        monthWeekRows={threeMonths.next[1]}
+      />
+    </DivNextMonthContainer>
+  </DivOuterContainer>
+);
 
 DatePickerCalendarBody.propTypes = {
-  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  threeMonths: PropTypes.shape({
+    prev: PropTypes.array,
+    cur: PropTypes.array,
+    next: PropTypes.array,
+  }).isRequired,
 };
 
 const DivOuterContainer = styled.div`
@@ -50,6 +61,5 @@ const DivPrevMonthContainer = DivCurMonthContainer.extend`
 const DivNextMonthContainer = DivCurMonthContainer.extend`
   visibility: hidden;
 `;
-
 
 export default DatePickerCalendarBody;
