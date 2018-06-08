@@ -31,4 +31,3 @@ const DivInnerContainer = styled.div`
 `;
 
 export default GuestPickerRowPicker;
-

@@ -54,4 +54,3 @@ const DivSecondaryLabelContainer = DivLabelContainer.extend`
 `;
 
 export default GuestPickerRowLabel;
-
