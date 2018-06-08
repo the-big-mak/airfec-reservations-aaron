@@ -11,7 +11,7 @@ const Stars = ({ stars, totRatings }) => {
       <Button>
         <span>
           <SpanStar>
-            { [...Array(Math.round(stars))].map(() => <Star key={Math.random()} type="whole" />) }
+            { [...Array(Math.floor(stars))].map(() => <Star key={Math.random()} type="whole" />) }
             {halfStar}
           </SpanStar>
           <SpanNumberOfRatings>
@@ -21,7 +21,7 @@ const Stars = ({ stars, totRatings }) => {
       </Button>
     </DivContainer>
   );
-}
+};
 
 Stars.propTypes = {
   stars: PropTypes.number.isRequired,
