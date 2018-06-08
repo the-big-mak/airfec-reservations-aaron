@@ -53,4 +53,3 @@ const SVGContainer = styled.svg`
 `;
 
 export default GuestPickerRowPickerPlus;
-
