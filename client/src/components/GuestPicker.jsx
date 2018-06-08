@@ -5,7 +5,7 @@ import GuestLabel from './GuestLabel';
 import GuestArrowDropDownAndUp from './GuestArrowDropDownAndUp';
 import GuestPickerDropDown from './GuestPickerDropDown';
 
-class GuestPicker extends Component {
+export default class GuestPicker extends Component {
   constructor(props) {
     super(props);
     this.dropDownRef = React.createRef();
@@ -137,5 +137,3 @@ const DivTableContainer = styled.div`
   display: table;
   width: 100%;
 `;
-
-export default GuestPicker;
