@@ -4,10 +4,17 @@ import styled from 'styled-components';
 import DatePickerCalendarContainer from './DatePickerCalendarContainer';
 import DatePickerMinStayDetails from './DatePickerMinStayDetails';
 
-const DatePickerDropDown = ({ availNights, minNightStay }) => (
+const DatePickerDropDown = ({
+  availNights, minNightStay, prevMonth, nextMonth, threeMonths,
+}) => (
   <DivOuterContainer>
     <DivInnerContainer>
-      <DatePickerCalendarContainer availNights={availNights} />
+      <DatePickerCalendarContainer
+        availNights={availNights}
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+        threeMonths={threeMonths}
+      />
       <DatePickerMinStayDetails minNightStay={minNightStay} />
     </DivInnerContainer>
   </DivOuterContainer>
@@ -16,6 +23,13 @@ const DatePickerDropDown = ({ availNights, minNightStay }) => (
 DatePickerDropDown.propTypes = {
   availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
   minNightStay: PropTypes.number.isRequired,
+  prevMonth: PropTypes.func.isRequired,
+  nextMonth: PropTypes.func.isRequired,
+  threeMonths: PropTypes.shape({
+    prev: PropTypes.array,
+    cur: PropTypes.array,
+    next: PropTypes.array,
+  }).isRequired,
 };
 
 const DivOuterContainer = styled.div`
