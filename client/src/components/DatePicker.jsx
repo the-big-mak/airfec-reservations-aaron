@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
-import DatePickerInputBottomCarot from './DatePickerInputBottomCarot.jsx';
+import DatePickerInputBottomCarot from './DatePickerInputBottomCarot';
 import DatePickerInputArrowRight from './DatePickerInputArrowRight';
 import DatePickerDropDown from './DatePickerDropDown';
 
-class DatePicker extends Component {
+export default class DatePicker extends Component {
   constructor(props) {
     super(props);
     this.dropDownRef = React.createRef();
@@ -42,7 +42,6 @@ class DatePicker extends Component {
                 name="checkIn"
                 type="text"
                 placeholder="Check In"
-                value={moment().add(6, 'days').add(3, 'months').format('MM/DD/YYYY')}
               />
               {dateDropDownActive.checkIn && <DatePickerInputBottomCarot />}
               <DivCheckInText
@@ -57,13 +56,12 @@ class DatePicker extends Component {
                 name="checkOut"
                 type="text"
                 placeholder="Check Out"
-                value="Check Out"
               />
               {dateDropDownActive.checkOut && <DatePickerInputBottomCarot />}
               <DivCheckOutText
                 dateDropDownActive={dateDropDownActive.checkOut}
               >
-              Check Out
+                Check Out
               </DivCheckOutText>
             </DivCheckInOutContainer>
           </DivPickerInnerContainer>
@@ -167,5 +165,3 @@ const DivCheckInText = styled.div`
 const DivCheckOutText = DivCheckInText.extend`
   color: ${props => (props.dateDropDownActive ? 'rgb(0, 122, 135);' : '#757575;')}
 `;
-
-export default DatePicker;
