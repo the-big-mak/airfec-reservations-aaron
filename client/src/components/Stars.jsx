@@ -7,19 +7,19 @@ const Stars = ({ stars, totRatings }) => {
   const roundedStars = Math.round(stars * 2) / 2;
   const halfStar = Number.isInteger(roundedStars) ? null : <Star type="half" />;
   return (
-    <DivContainer>
+    <div>
       <Button>
         <span>
-          <SpanStar>
+          <span>
             { [...Array(Math.floor(stars))].map(() => <Star key={Math.random()} type="whole" />) }
             {halfStar}
-          </SpanStar>
+          </span>
           <SpanNumberOfRatings>
             {totRatings}
           </SpanNumberOfRatings>
         </span>
       </Button>
-    </DivContainer>
+    </div>
   );
 };
 
@@ -27,10 +27,6 @@ Stars.propTypes = {
   stars: PropTypes.number.isRequired,
   totRatings: PropTypes.number.isRequired,
 };
-
-const DivContainer = styled.div`
-
-`;
 
 const Button = styled.button`
   background: transparent;
@@ -45,10 +41,6 @@ const Button = styled.button`
   -webkit-user-select: auto;
   -moz-user-select: auto;
   -ms-user-select: auto;
-`;
-
-const SpanStar = styled.span`
-
 `;
 
 const SpanNumberOfRatings = styled.span`
