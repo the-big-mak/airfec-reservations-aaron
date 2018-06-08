@@ -5,7 +5,6 @@ import GuestPickerRowPickerMinus from './GuestPickerRowPickerMinus';
 import GuestPickerRowPickerNumber from './GuestPickerRowPickerNumber';
 import GuestPickerRowPickerPlus from './GuestPickerRowPickerPlus';
 
-
 const GuestPickerRowPicker = ({ initialValue }) => (
   <DivOuterContainer>
     <DivInnerContainer>
