@@ -7,9 +7,7 @@ import DatePickerMinStayDetails from './DatePickerMinStayDetails';
 const DatePickerDropDown = ({ availNights, minNightStay }) => (
   <DivOuterContainer>
     <DivInnerContainer>
-      <DivCalendarContainer>
-        <DatePickerCalendarContainer availNights={availNights} />
-      </DivCalendarContainer>
+      <DatePickerCalendarContainer availNights={availNights} />
       <DatePickerMinStayDetails minNightStay={minNightStay} />
     </DivInnerContainer>
   </DivOuterContainer>
@@ -35,10 +33,6 @@ const DivInnerContainer = styled.div`
   position: relative;
   text-align: left;
   width: 319px;
-`;
-
-const DivCalendarContainer = styled.div`
-  width: 318px;
 `;
 
 export default DatePickerDropDown;
