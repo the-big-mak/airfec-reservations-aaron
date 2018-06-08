@@ -11,10 +11,8 @@ const BookingButton = () => (
 
 const Button = styled.button`
   background: #FF5A5F;
-  border-color: transparent;
+  border: 2px solid transparent;
   border-radius: 4px;
-  border-style: solid;
-  border-width: 2px;
   box-shadow: none;
   color: #ffffff;
   cursor: pointer;
@@ -29,14 +27,14 @@ const Button = styled.button`
   position: relative;
   text-align: center;
   text-decoration: none;
-  -webkit-transition-duration: 0.2s;
   transition-duration: 0.2s;
-  -webkit-transition-property: background, border-color, color;
-  -moz-transition-property: background, border-color, color;
   transition-property: background, border-color, color;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
   width: 100%;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-property: background, border-color, color;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-property: background, border-color, color;
 `;
 
 const SpanButtonText = styled.span`
