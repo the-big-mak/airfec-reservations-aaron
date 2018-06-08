@@ -1,42 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GuestLabel from './GuestLabel';
 import GuestArrowDropDownAndUp from './GuestArrowDropDownAndUp';
 import GuestPickerDropDown from './GuestPickerDropDown';
 
-const GuestPicker = ({ guestDropDownActive, handleGuestDropDown, maxGuests }) => (
-  <DivOuterContainer>
-    <LabelOuterContainer>
-      <SmallLabelInnerContainer>Guests</SmallLabelInnerContainer>
-    </LabelOuterContainer>
-    <DivPickerOuterContainer>
-      <ButtonPicker
-        onClick={handleGuestDropDown}
-        guestDropDownActive={guestDropDownActive}
-      >
-        <DivCellOuterContainer>
-          <DivCellInnerContainer>
-            <DivTableContainer>
-              <GuestLabel guestDropDownActive={guestDropDownActive} />
-              <GuestArrowDropDownAndUp guestDropDownActive={guestDropDownActive} />
-            </DivTableContainer>
-          </DivCellInnerContainer>
-        </DivCellOuterContainer>
-      </ButtonPicker>
-      {guestDropDownActive && <GuestPickerDropDown maxGuests={maxGuests} />}
-    </DivPickerOuterContainer>
-    <input type="hidden" name="number_of_guests" value="1" />
-    <input type="hidden" name="number_of_adults" value="1" />
-    <input type="hidden" name="number_of_children" value="0" />
-    <input type="hidden" name="number_of_infants" value="0" />
-  </DivOuterContainer>
-);
-
+class GuestPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.dropDownRef = React.createRef();
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+  componentDidMount() {
+    document.addEventListener('click', this.handleOutsideClick, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleOutsideClick, false);
+  }
+  handleOutsideClick(e) {
+    if (this.props.guestDropDownActive) {
+      if (this.dropDownRef.current.contains(e.target)) {
+        return;
+      }
+      this.props.handleOutsideDropDownClick();
+    }
+  }
+  render() {
+    const {
+      guestDropDownActive, handleGuestDropDown, maxGuests,
+    } = this.props;
+    return (
+      <DivOuterContainer>
+        <LabelOuterContainer>
+          <SmallLabelInnerContainer>Guests</SmallLabelInnerContainer>
+        </LabelOuterContainer>
+        <DivPickerOuterContainer innerRef={this.dropDownRef}>
+          <ButtonPicker
+            onClick={handleGuestDropDown}
+            guestDropDownActive={guestDropDownActive}
+          >
+            <DivCellOuterContainer>
+              <DivCellInnerContainer>
+                <DivTableContainer>
+                  <GuestLabel guestDropDownActive={guestDropDownActive} />
+                  <GuestArrowDropDownAndUp guestDropDownActive={guestDropDownActive} />
+                </DivTableContainer>
+              </DivCellInnerContainer>
+            </DivCellOuterContainer>
+          </ButtonPicker>
+          {guestDropDownActive && <GuestPickerDropDown maxGuests={maxGuests} />}
+        </DivPickerOuterContainer>
+        <input type="hidden" name="number_of_guests" value="1" />
+        <input type="hidden" name="number_of_adults" value="1" />
+        <input type="hidden" name="number_of_children" value="0" />
+        <input type="hidden" name="number_of_infants" value="0" />
+      </DivOuterContainer>
+    );
+  }
+}
 GuestPicker.propTypes = {
   guestDropDownActive: PropTypes.bool.isRequired,
   handleGuestDropDown: PropTypes.func.isRequired,
   maxGuests: PropTypes.number.isRequired,
+  handleOutsideDropDownClick: PropTypes.func.isRequired,
 };
 
 const DivOuterContainer = styled.div`
