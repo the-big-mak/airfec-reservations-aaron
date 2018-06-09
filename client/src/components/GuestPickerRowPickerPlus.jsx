@@ -1,18 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const GuestPickerRowPickerPlus = () => (
-  <DivOuterContainer>
-    <ButtonContainer>
-      <SpanContainer>
-        <SVGContainer viewBox="0 0 24 24" focusable="false">
-          <rect height="2" rx="1" width="12" x="6" y="11" />
-          <rect height="12" rx="1" width="2" x="11" y="6" />
-        </SVGContainer>
-      </SpanContainer>
-    </ButtonContainer>
-  </DivOuterContainer>
-);
+const GuestPickerRowPickerPlus = ({
+  handleChangeGuests, label, totalGuests, maxGuests, value,
+}) => {
+  const isDisabled = () => (label !== 'Infants' ? totalGuests >= maxGuests : value >= 5);
+  return (
+    <DivOuterContainer>
+      <ButtonContainer
+        onClick={e => handleChangeGuests(e, label)}
+        disabled={isDisabled()}
+      >
+        <SpanContainer disabled={isDisabled()}>
+          <SVGContainer viewBox="0 0 24 24" focusable="false">
+            <rect height="2" rx="1" width="12" x="6" y="11" />
+            <rect height="12" rx="1" width="2" x="11" y="6" />
+          </SVGContainer>
+        </SpanContainer>
+      </ButtonContainer>
+    </DivOuterContainer>
+  );
+};
+
+GuestPickerRowPickerPlus.propTypes = {
+  handleChangeGuests: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  totalGuests: PropTypes.number.isRequired,
+  maxGuests: PropTypes.number.isRequired,
+};
 
 const DivOuterContainer = styled.div`
   display: table-cell;
@@ -22,7 +39,7 @@ const DivOuterContainer = styled.div`
 
 const ButtonContainer = styled.button`
   background: transparent;
-  border: 1px solid rgb(0, 132, 137);
+  border: ${props => (props.disabled ? '1px solid rgba(0, 132, 137, 0.3);' : '1px solid rgba(0, 132, 137);')}
   border-radius: 50%;
   box-shadow: none;
   cursor: pointer;
@@ -36,7 +53,7 @@ const ButtonContainer = styled.button`
 `;
 
 const SpanContainer = styled.span`
-  color: rgb(0, 132, 137);
+  color: ${props => (props.disabled ? 'rgba(0, 132, 137, 0.3);' : 'rgba(0, 132, 137);')}
   font-size: 16px;
   left: 50%;
   position: absolute;

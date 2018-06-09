@@ -9,6 +9,14 @@ export default class GuestPicker extends Component {
   constructor(props) {
     super(props);
     this.dropDownRef = React.createRef();
+    this.state = {
+      guests: 1,
+      adultsNum: 1,
+      childrenNum: 0,
+      infantsNum: 0,
+    };
+    this.handleAddGuests = this.handleAddGuests.bind(this);
+    this.handleMinusGuests = this.handleMinusGuests.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
   componentDidMount() {
@@ -16,6 +24,40 @@ export default class GuestPicker extends Component {
   }
   componentWillUnmount() {
     document.removeEventListener('click', this.handleOutsideClick, false);
+  }
+  handleAddGuests(e, label) {
+    e.preventDefault();
+    const stateLabel = `${label.toLowerCase()}Num`;
+    const otherLabel = stateLabel === 'adultsNum' ? 'childrenNum' : 'adultsNum';
+    let labelNum = this.state[stateLabel];
+    let { guests } = this.state;
+    if (stateLabel === 'infantsNum') {
+      if (this.state.infantsNum < 5) {
+        labelNum += 1;
+      }
+    } else {
+      if (labelNum < (this.props.maxGuests - this.state[otherLabel])) {
+        labelNum += 1;
+      }
+      if (guests < this.props.maxGuests) {
+        guests += 1;
+      }
+    }
+    this.setState({ guests, [stateLabel]: labelNum });
+  }
+  handleMinusGuests(e, label) {
+    e.preventDefault();
+    const stateLabel = `${label.toLowerCase()}Num`;
+    const otherLabel = stateLabel === 'adultsNum' ? 'childrenNum' : 'adultsNum';
+    let labelNum = this.state[stateLabel];
+    let { guests } = this.state;
+    if (labelNum > 0) {
+      labelNum -= 1;
+    }
+    if (label !== 'Infants' && (guests - this.state[otherLabel]) > 0) {
+      guests -= 1;
+    }
+    this.setState({ guests, [stateLabel]: labelNum });
   }
   handleOutsideClick(e) {
     if (this.props.guestDropDownActive) {
@@ -42,18 +84,32 @@ export default class GuestPicker extends Component {
             <DivCellOuterContainer>
               <DivCellInnerContainer>
                 <DivTableContainer>
-                  <GuestLabel guestDropDownActive={guestDropDownActive} />
+                  <GuestLabel
+                    guestDropDownActive={guestDropDownActive}
+                    guestValue={this.state.guests}
+                    infantsValue={this.state.infantsNum}
+                  />
                   <GuestArrowDropDownAndUp guestDropDownActive={guestDropDownActive} />
                 </DivTableContainer>
               </DivCellInnerContainer>
             </DivCellOuterContainer>
           </ButtonPicker>
-          {guestDropDownActive && <GuestPickerDropDown maxGuests={maxGuests} />}
+          {guestDropDownActive &&
+            <GuestPickerDropDown
+              maxGuests={maxGuests}
+              adultsNum={this.state.adultsNum}
+              childrenNum={this.state.childrenNum}
+              infantsNum={this.state.infantsNum}
+              totalGuests={this.state.guests}
+              handleAddGuests={this.handleAddGuests}
+              handleMinusGuests={this.handleMinusGuests}
+            />
+          }
         </DivPickerOuterContainer>
-        <input type="hidden" name="number_of_guests" value="1" />
-        <input type="hidden" name="number_of_adults" value="1" />
-        <input type="hidden" name="number_of_children" value="0" />
-        <input type="hidden" name="number_of_infants" value="0" />
+        <input type="hidden" name="number_of_guests" value={this.state.guests} />
+        <input type="hidden" name="number_of_adults" value={this.state.adultsNum} />
+        <input type="hidden" name="number_of_children" value={this.state.childrenNum} />
+        <input type="hidden" name="number_of_infants" value={this.state.infantsNum} />
       </DivOuterContainer>
     );
   }

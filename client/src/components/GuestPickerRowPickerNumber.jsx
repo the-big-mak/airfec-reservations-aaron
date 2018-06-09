@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const GuestPickerRowPickerNumber = ({ initialValue }) => (
+const GuestPickerRowPickerNumber = ({ value }) => (
   <DivOuterContainer>
-    <DivInnerContainer>{initialValue}</DivInnerContainer>
+    <DivInnerContainer>{value}</DivInnerContainer>
   </DivOuterContainer>
 );
 
 GuestPickerRowPickerNumber.propTypes = {
-  initialValue: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`

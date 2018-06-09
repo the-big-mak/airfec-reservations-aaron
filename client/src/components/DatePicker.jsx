@@ -15,11 +15,7 @@ export default class DatePicker extends Component {
       prevDateContext: moment().subtract(1, 'month'),
       curDateContext: moment(),
       nextDateContext: moment().add(1, 'month'),
-      threeMonths: {
-        prev: [],
-        cur: [],
-        next: [],
-      },
+      threeMonths: { prev: [], cur: [], next: [] },
     };
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.prevMonth = this.prevMonth.bind(this);
@@ -28,7 +24,6 @@ export default class DatePicker extends Component {
   componentDidMount() {
     document.addEventListener('click', this.handleOutsideClick, false);
     this.getThreeMonths();
-    console.log(this.props.availNights);
   }
   componentWillUnmount() {
     document.removeEventListener('click', this.handleOutsideClick, false);
