@@ -4,12 +4,24 @@ import styled from 'styled-components';
 import GuestPickerRowLabel from './GuestPickerRowLabel';
 import GuestPickerRowPicker from './GuestPickerRowPicker';
 
-const GuestPickerRow = ({ label, initialValue, secondaryLabel }) => (
+const GuestPickerRow = ({
+  label, value, secondaryLabel, handleAddGuests, handleMinusGuests, totalGuests, maxGuests,
+}) => (
   <DivOuterContainer secondaryLabel={secondaryLabel}>
     <DivInnerContainer>
       <DivTableContainer>
-        <GuestPickerRowLabel label={label} secondaryLabel={secondaryLabel} />
-        <GuestPickerRowPicker initialValue={initialValue} />
+        <GuestPickerRowLabel
+          label={label}
+          secondaryLabel={secondaryLabel}
+        />
+        <GuestPickerRowPicker
+          value={value}
+          label={label}
+          handleAddGuests={handleAddGuests}
+          handleMinusGuests={handleMinusGuests}
+          totalGuests={totalGuests}
+          maxGuests={maxGuests}
+        />
       </DivTableContainer>
     </DivInnerContainer>
   </DivOuterContainer>
@@ -17,8 +29,12 @@ const GuestPickerRow = ({ label, initialValue, secondaryLabel }) => (
 
 GuestPickerRow.propTypes = {
   label: PropTypes.string.isRequired,
-  initialValue: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
   secondaryLabel: PropTypes.string.isRequired,
+  handleAddGuests: PropTypes.func.isRequired,
+  handleMinusGuests: PropTypes.func.isRequired,
+  totalGuests: PropTypes.number.isRequired,
+  maxGuests: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
