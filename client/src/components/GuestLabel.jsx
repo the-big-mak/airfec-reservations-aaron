@@ -2,20 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const GuestLabel = ({ guestDropDownActive }) => (
+const GuestLabel = ({ guestDropDownActive, guestValue, infantsValue }) => (
   <DivGuestLabelContainer>
     <DivGuestLabelInnerContainer>
       <SpanGuestLabel
         guestDropDownActive={guestDropDownActive}
       >
-        1 guest
+        {guestValue} {guestValue === 1 ? 'guest' : 'guests'}
       </SpanGuestLabel>
+      {infantsValue > 0 &&
+      <span>
+        <span>, </span>
+        <SpanGuestLabel
+          guestDropDownActive={false}
+        >
+          {infantsValue} {infantsValue === 1 ? 'infant' : 'infants'}
+        </SpanGuestLabel>
+      </span>
+      }
     </DivGuestLabelInnerContainer>
   </DivGuestLabelContainer>
 );
 
 GuestLabel.propTypes = {
   guestDropDownActive: PropTypes.bool.isRequired,
+  guestValue: PropTypes.number.isRequired,
+  infantsValue: PropTypes.number.isRequired,
 };
 
 const DivGuestLabelContainer = styled.div`
