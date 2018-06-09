@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Reservations from './Reservations';
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -15,40 +15,64 @@ class App extends Component {
       cleaningFee: 0,
       addtlGuestFee: 0,
       guestDropDownActive: false,
+      dateDropDownActive: {
+        checkIn: false,
+        checkOut: false,
+      },
+      roomId: window.location.pathname.split('/')[2],
     };
+    this.handleDateDropDown = this.handleDateDropDown.bind(this);
     this.handleGuestDropDown = this.handleGuestDropDown.bind(this);
+    this.handleOutsideDropDownClick = this.handleOutsideDropDownClick.bind(this);
     this.postBooking = this.postBooking.bind(this);
   }
   componentDidMount() {
-    this.fetchDetailsAndAvailNights(window.location.pathname.split('/')[2]);
+    this.fetchDetailsAndAvailNights();
   }
-  fetchDetailsAndAvailNights(roomId) {
-    axios.get(`/reservations/${roomId}`)
+  fetchDetailsAndAvailNights() {
+    axios.get(`/reservations/${this.state.roomId}`)
       .then(db => this.updateState(db.data))
       .catch(err => err);
+  }
+  handleDateDropDown(e, checkInOut) {
+    e.preventDefault();
+    const dateDropDownActive = { ...this.state.dateDropDownActive };
+    const checkInOrOutPair = checkInOut === 'checkIn' ? 'checkOut' : 'checkIn';
+    if (dateDropDownActive[checkInOrOutPair]) {
+      dateDropDownActive[checkInOrOutPair] = false;
+    }
+    dateDropDownActive[checkInOut] = true;
+    this.setState({ dateDropDownActive });
+  }
+  handleOutsideDropDownClick() {
+    const dateDropDownActive = { ...this.state.dateDropDownActive };
+    dateDropDownActive.checkIn = false;
+    dateDropDownActive.checkOut = false;
+    this.setState({ dateDropDownActive, guestDropDownActive: false });
   }
   handleGuestDropDown(e) {
     e.preventDefault();
     this.setState(prevState => ({ guestDropDownActive: !prevState.guestDropDownActive }));
   }
-  postBooking () {
-
+  postBooking() {
+    axios.post(`/reservations/${this.state.roomId}`)
+      .then(db => this.updateState(db.data))
+      .catch(err => err);
   }
   updateState(data) {
-    const { avg_rating, total_ratings, max_guests, min_night_stay, cleaning_fee, addtl_guest_fee } = data[0][0];
     const avgNightlyRate = data[1].reduce((acc, night) => {
-      acc = night.rate > acc ? night.rate : acc;
-      return acc;
-    }, 0);
+      const accESLint = night.rate > acc ? night.rate : acc;
+      return accESLint;
+    }, 0) || 11500;
     this.setState({
-      stars: avg_rating,
-      totalRatings: total_ratings,
+      stars: data[0][0].avg_rating,
+      totalRatings: data[0][0].total_ratings,
       avgNightlyRate,
       availNights: data[1],
-      maxGuests: max_guests,
-      minNightStay: min_night_stay,
-      cleaningFee: cleaning_fee,
-      addtlGuestFee: addtl_guest_fee,
+      maxGuests: data[0][0].max_guests,
+      minNightStay: data[0][0].min_night_stay,
+      cleaningFee: data[0][0].cleaning_fee,
+      addtlGuestFee: data[0][0].addtl_guest_fee,
     });
   }
   render() {
@@ -63,13 +87,14 @@ class App extends Component {
           minNightStay={this.state.minNightStay}
           cleaningFee={this.state.cleaningFee}
           addtlGuestFee={this.state.addtlGuestFee}
+          dateDropDownActive={this.state.dateDropDownActive}
+          handleDateDropDown={this.handleDateDropDown}
           guestDropDownActive={this.state.guestDropDownActive}
           handleGuestDropDown={this.handleGuestDropDown}
+          handleOutsideDropDownClick={this.handleOutsideDropDownClick}
           postBooking={this.postBooking}
         />
       </div>
     );
   }
 }
-
-export default App;

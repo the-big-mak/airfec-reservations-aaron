@@ -10,7 +10,7 @@ const GuestPickerRowLabel = ({ label, secondaryLabel }) => (
       </DivLabelContainer>
       {secondaryLabel &&
       <DivSecondaryLabelContainer>
-      {secondaryLabel}
+        {secondaryLabel}
       </DivSecondaryLabelContainer>}
     </DivInnerContainer>
   </DivOuterContainer>
@@ -54,4 +54,3 @@ const DivSecondaryLabelContainer = DivLabelContainer.extend`
 `;
 
 export default GuestPickerRowLabel;
-

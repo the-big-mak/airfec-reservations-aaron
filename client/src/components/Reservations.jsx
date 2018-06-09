@@ -7,8 +7,9 @@ import ReportListing from './ReportListing';
 
 const Reservations = ({
   avgNightlyRate, stars, totRatings, availNights, maxGuests,
-  minNightStay, cleaningFee, addtlGuestFee, guestDropDownActive,
-  handleGuestDropDown, postBooking,
+  minNightStay, cleaningFee, addtlGuestFee, dateDropDownActive,
+  handleDateDropDown, guestDropDownActive, handleGuestDropDown,
+  handleOutsideDropDownClick, postBooking,
 }) => (
   <DivOuterContainer>
     <DivInnerContainer>
@@ -24,8 +25,11 @@ const Reservations = ({
           minNightStay={minNightStay}
           cleaningFee={cleaningFee}
           addtlGuestFee={addtlGuestFee}
+          dateDropDownActive={dateDropDownActive}
+          handleDateDropDown={handleDateDropDown}
           guestDropDownActive={guestDropDownActive}
           handleGuestDropDown={handleGuestDropDown}
+          handleOutsideDropDownClick={handleOutsideDropDownClick}
           postBooking={postBooking}
         />
       </DivInnerMostContainer>
@@ -43,8 +47,14 @@ Reservations.propTypes = {
   minNightStay: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,
   addtlGuestFee: PropTypes.number.isRequired,
+  dateDropDownActive: PropTypes.shape({
+    checkIn: PropTypes.bool,
+    checkOut: PropTypes.bool,
+  }).isRequired,
+  handleDateDropDown: PropTypes.func.isRequired,
   guestDropDownActive: PropTypes.bool.isRequired,
   handleGuestDropDown: PropTypes.func.isRequired,
+  handleOutsideDropDownClick: PropTypes.func.isRequired,
   postBooking: PropTypes.func.isRequired,
 };
 

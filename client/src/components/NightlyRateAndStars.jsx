@@ -5,11 +5,11 @@ import NightlyRate from './NightlyRate';
 import Stars from './Stars';
 
 const NightlyRateAndStars = ({ avgNightlyRate, stars, totRatings }) => (
-  <DivOuterContainer>
+  <div>
     <NightlyRate avgNightlyRate={avgNightlyRate} />
     <Stars stars={stars} totRatings={totRatings} />
     <DivBottomSeparator />
-  </DivOuterContainer>
+  </div>
 );
 
 NightlyRateAndStars.propTypes = {
@@ -17,10 +17,6 @@ NightlyRateAndStars.propTypes = {
   stars: PropTypes.number.isRequired,
   totRatings: PropTypes.number.isRequired,
 };
-
-const DivOuterContainer = styled.div`
-
-`;
 
 const DivBottomSeparator = styled.div`
   border-bottom: 1px solid #DBDBDB;

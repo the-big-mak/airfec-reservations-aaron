@@ -42,4 +42,3 @@ const DivTableContainer = styled.div`
 `;
 
 export default GuestPickerRow;
-

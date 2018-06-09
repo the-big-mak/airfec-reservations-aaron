@@ -10,6 +10,7 @@ const GuestPickerDropDown = ({ maxGuests }) => (
       <GuestPickerRow
         label="Adults"
         initialValue={1}
+        secondaryLabel=""
       />
       <GuestPickerRow
         label="Children"

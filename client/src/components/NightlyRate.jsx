@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const NightlyRate = ({ avgNightlyRate }) => (
-  <DivOuterContainer>
+  <div>
     <DivInnerContainer>
       <RateSpan>${Math.floor(avgNightlyRate / 100)}</RateSpan>
       <PerNightSpan>per night</PerNightSpan>
     </DivInnerContainer>
-  </DivOuterContainer>
+  </div>
 );
 
 NightlyRate.propTypes = {
   avgNightlyRate: PropTypes.number.isRequired,
 };
-
-const DivOuterContainer = styled.div`
-`;
 
 const DivInnerContainer = styled.div`
   display: inline-block;
