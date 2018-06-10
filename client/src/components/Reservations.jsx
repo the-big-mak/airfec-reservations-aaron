@@ -4,14 +4,15 @@ import styled from 'styled-components';
 import NightlyRateAndStars from './NightlyRateAndStars';
 import BookItForm from './BookItForm';
 import ReportListing from './ReportListing';
+import ViewsCount from './ViewsCount';
 
 const Reservations = ({
   avgNightlyRate, stars, totRatings, availNights, maxGuests,
   minNightStay, cleaningFee, addtlGuestFee, dateDropDownActive,
   handleDateDropDown, guestDropDownActive, handleGuestDropDown,
-  handleOutsideDropDownClick, postBooking,
+  handleOutsideDropDownClick, postBooking, isBookItFixed, views,
 }) => (
-  <DivOuterContainer>
+  <DivOuterContainer isBookItFixed={isBookItFixed}>
     <DivInnerContainer>
       <DivInnerMostContainer>
         <NightlyRateAndStars
@@ -32,6 +33,9 @@ const Reservations = ({
           handleOutsideDropDownClick={handleOutsideDropDownClick}
           postBooking={postBooking}
         />
+        {isBookItFixed &&
+        <ViewsCount isBookItFixed={isBookItFixed} views={views} />
+        }
       </DivInnerMostContainer>
     </DivInnerContainer>
     <ReportListing />
@@ -56,6 +60,8 @@ Reservations.propTypes = {
   handleGuestDropDown: PropTypes.func.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
   postBooking: PropTypes.func.isRequired,
+  isBookItFixed: PropTypes.bool.isRequired,
+  views: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
@@ -65,10 +71,9 @@ const DivOuterContainer = styled.div`
   font-size: 14px;
   line-height: 1.43;
   margin-left: 45px;
-  position: absolute;
-  top: 24px;
   width: 376px;
   -webkit-font-smoothing: antialiased;
+  ${props => (props.isBookItFixed ? 'position: fixed; top: 75px;' : 'position: absolute; top: 24px;')}
 `;
 const DivInnerContainer = styled.div`
   border: 1px solid #e4e4e4;

@@ -5,6 +5,7 @@ import Reservations from './Reservations';
 export default class App extends Component {
   constructor() {
     super();
+    this.bookItRef = React.createRef();
     this.state = {
       avgNightlyRate: 0,
       stars: 0,
@@ -20,14 +21,21 @@ export default class App extends Component {
         checkOut: false,
       },
       roomId: window.location.pathname.split('/')[2],
+      isBookItFixed: false,
+      views: 367,
     };
+    this.handleScroll = this.handleScroll.bind(this);
     this.handleDateDropDown = this.handleDateDropDown.bind(this);
     this.handleGuestDropDown = this.handleGuestDropDown.bind(this);
     this.handleOutsideDropDownClick = this.handleOutsideDropDownClick.bind(this);
     this.postBooking = this.postBooking.bind(this);
   }
   componentDidMount() {
+    document.addEventListener('scroll', this.handleScroll);
     this.fetchDetailsAndAvailNights();
+  }
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll);
   }
   fetchDetailsAndAvailNights() {
     axios.get(`/reservations/${this.state.roomId}`)
@@ -43,6 +51,13 @@ export default class App extends Component {
     }
     dateDropDownActive[checkInOut] = true;
     this.setState({ dateDropDownActive });
+  }
+  handleScroll() {
+    if (window.scrollY > 40 && window.scrollY < 50) {
+      this.setState({ isBookItFixed: true });
+    } else if (window.scrollY > 30 && window.scrollY < 40) {
+      this.setState({ isBookItFixed: false });
+    }
   }
   handleOutsideDropDownClick() {
     const dateDropDownActive = { ...this.state.dateDropDownActive };
@@ -93,6 +108,9 @@ export default class App extends Component {
           handleGuestDropDown={this.handleGuestDropDown}
           handleOutsideDropDownClick={this.handleOutsideDropDownClick}
           postBooking={this.postBooking}
+          ref={this.bookItRef}
+          isBookItFixed={this.state.isBookItFixed}
+          views={this.state.views}
         />
       </div>
     );
