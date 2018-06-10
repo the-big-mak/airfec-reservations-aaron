@@ -22,11 +22,11 @@ export default class DatePicker extends Component {
     this.nextMonth = this.nextMonth.bind(this);
   }
   componentDidMount() {
-    document.addEventListener('click', this.handleOutsideClick, false);
+    document.addEventListener('click', this.handleOutsideClick);
     this.getThreeMonths();
   }
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick, false);
+    document.removeEventListener('click', this.handleOutsideClick);
   }
   getThreeMonths() {
     const threeMonths = [
