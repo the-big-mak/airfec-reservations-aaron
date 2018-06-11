@@ -12,14 +12,15 @@ export default class DatePicker extends Component {
     super(props);
     this.dropDownRef = React.createRef();
     this.state = {
-      prevDateContext: moment().subtract(1, 'month'),
-      curDateContext: moment(),
-      nextDateContext: moment().add(1, 'month'),
+      prevDateContext: moment().add(1, 'months'),
+      curDateContext: moment().add(2, 'months'),
+      nextDateContext: moment().add(3, 'months'),
       threeMonths: { prev: [], cur: [], next: [] },
     };
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
-    this.prevMonth = this.prevMonth.bind(this);
-    this.nextMonth = this.nextMonth.bind(this);
+    this.handleChangePrevMonth = this.handleChangePrevMonth.bind(this);
+    this.handleChangeNextMonth = this.handleChangeNextMonth.bind(this);
+    this.handleDateClick = this.handleDateClick.bind(this);
   }
   componentDidMount() {
     document.addEventListener('click', this.handleOutsideClick);
@@ -41,16 +42,32 @@ export default class DatePicker extends Component {
     }, {});
     this.setState({ threeMonths });
   }
-  prevMonth() {
+  handleChangePrevMonth() {
     ['prevDateContext', 'curDateContext', 'nextDateContext'].forEach(el => this.changeMonth(el, 'subtract'));
   }
-  nextMonth() {
+  handleChangeNextMonth() {
     ['prevDateContext', 'curDateContext', 'nextDateContext'].forEach(el => this.changeMonth(el, 'add'));
   }
   changeMonth(dc, type) {
     let dateContext = { ...this.state[dc] };
     dateContext = moment(dateContext)[type](1, 'month');
     this.setState({ [dc]: dateContext }, () => this.getThreeMonths());
+  }
+  handleDateClick(e, day, monthYear) {
+    e.preventDefault();
+    const dateArr = monthYear.split(' ');
+    dateArr.splice(1, 0, day.day);
+    const momentDate = moment(dateArr.join(' '), 'MMMM D YYYY');
+    const checkInOut = this.props.dateDropDownActive.checkIn ? 'checkIn' : 'checkOut';
+    if (checkInOut === 'checkOut') {
+      if (momentDate.isAfter(this.props.checkIn)) {
+        this.props.handleChangeCheckInOut(undefined, momentDate);
+      } else {
+        this.props.handleChangeCheckInOut(momentDate, '');
+      }
+    } else if (checkInOut === 'checkIn') {
+      this.props.handleChangeCheckInOut(momentDate, '');
+    }
   }
   handleOutsideClick(e) {
     if (this.props.dateDropDownActive.checkIn || this.props.dateDropDownActive.checkOut) {
@@ -62,7 +79,7 @@ export default class DatePicker extends Component {
   }
   render() {
     const {
-      availNights, dateDropDownActive, handleDateDropDown, minNightStay,
+      availNights, dateDropDownActive, handleDateDropDown, minNightStay, checkIn, checkOut,
     } = this.props;
     return (
       <DivContainer>
@@ -81,7 +98,7 @@ export default class DatePicker extends Component {
               <DivCheckInText
                 dateDropDownActive={dateDropDownActive.checkIn}
               >
-                {moment().add(6, 'days').add(3, 'months').format('MM/DD/YYYY')}
+                {checkIn.format('MM/DD/YYYY')}
               </DivCheckInText>
             </DivCheckInOutContainer>
             <DatePickerInputArrowRight />
@@ -94,8 +111,9 @@ export default class DatePicker extends Component {
               {dateDropDownActive.checkOut && <DatePickerInputBottomCarot />}
               <DivCheckOutText
                 dateDropDownActive={dateDropDownActive.checkOut}
+                value={checkOut}
               >
-                Check Out
+                {checkOut ? checkOut.format('MM/DD/YYYY') : 'Check Out'}
               </DivCheckOutText>
             </DivCheckInOutContainer>
           </DivPickerInnerContainer>
@@ -103,9 +121,10 @@ export default class DatePicker extends Component {
             <DatePickerDropDown
               availNights={availNights}
               minNightStay={minNightStay}
-              prevMonth={this.prevMonth}
-              nextMonth={this.nextMonth}
+              handleChangePrevMonth={this.handleChangePrevMonth}
+              handleChangeNextMonth={this.handleChangeNextMonth}
               threeMonths={this.state.threeMonths}
+              handleDateClick={this.handleDateClick}
             />
           }
         </DivPickerOuterContainer>
@@ -123,6 +142,16 @@ DatePicker.propTypes = {
   handleDateDropDown: PropTypes.func.isRequired,
   minNightStay: PropTypes.number.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
+  checkIn: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  checkOut: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  handleChangeCheckInOut: PropTypes.func.isRequired,
+  handleShowBill: PropTypes.func.isRequired,
 };
 
 const DivContainer = styled.div`
@@ -141,9 +170,7 @@ const LabelOuterContainer = styled.label`
 
 const SmallLabelInnerContainer = styled.small`
   color: #484848;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
+  font: 600 12px Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   letter-spacing: normal;
   line-height: 16px;
   margin: 0px;
@@ -174,10 +201,10 @@ const DivCheckInOutContainer = styled.div`
   margin: 0px;
   padding: 8px;
   position: relative;
+  vertical-align: middle;
+  width: calc(50% - 12px);
   width: -webkit-calc(50% - 12px);
   width: -moz-calc(50% - 12px);
-  width: calc(50% - 12px);
-  vertical-align: middle;
 `;
 
 const InputCheckInOut = styled.input`
@@ -204,5 +231,10 @@ const DivCheckInText = styled.div`
 `;
 
 const DivCheckOutText = DivCheckInText.extend`
-  color: ${props => (props.dateDropDownActive ? 'rgb(0, 122, 135);' : '#757575;')}
+  color: ${(props) => {
+    if (props.dateDropDownActive) {
+      return 'rgb(0, 122, 135);';
+    }
+    return props.value ? 'rgb(72, 72, 72);' : '#757575;';
+  }}
 `;
