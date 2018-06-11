@@ -53,18 +53,22 @@ export default class DatePicker extends Component {
     dateContext = moment(dateContext)[type](1, 'month');
     this.setState({ [dc]: dateContext }, () => this.getThreeMonths());
   }
+  handleChangeCheckOut(momentDate) {
+    let minFutureDate = { ...this.props.checkIn };
+    minFutureDate = moment(minFutureDate).add(this.props.minNightStay - 1, 'days');
+    if (momentDate.isAfter(minFutureDate)) {
+      this.props.handleChangeCheckInOut(undefined, momentDate);
+    }
+    // else {
+    //   this.props.handleChangeCheckInOut(momentDate, '');
+    // }
+  }
   handleDateClick(e, day, monthYear) {
     e.preventDefault();
-    const dateArr = monthYear.split(' ');
-    dateArr.splice(1, 0, day.day);
-    const momentDate = moment(dateArr.join(' '), 'MMMM D YYYY');
+    const momentDate = momentHlpr.getMomentDateFromDayAndMonthYear(day.day, monthYear);
     const checkInOut = this.props.dateDropDownActive.checkIn ? 'checkIn' : 'checkOut';
     if (checkInOut === 'checkOut') {
-      if (momentDate.isAfter(this.props.checkIn)) {
-        this.props.handleChangeCheckInOut(undefined, momentDate);
-      } else {
-        this.props.handleChangeCheckInOut(momentDate, '');
-      }
+      this.handleChangeCheckOut(momentDate);
     } else if (checkInOut === 'checkIn') {
       this.props.handleChangeCheckInOut(momentDate, '');
     }
