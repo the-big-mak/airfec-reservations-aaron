@@ -11,6 +11,8 @@ const Reservations = ({
   minNightStay, cleaningFee, addtlGuestFee, dateDropDownActive,
   handleDateDropDown, guestDropDownActive, handleGuestDropDown,
   handleOutsideDropDownClick, postBooking, isBookItFixed, views,
+  checkIn, checkOut, guests, handleChangeGuests, handleChangeCheckInOut,
+  isBillVisible, handleShowBill, billPricePerNight, serviceFee, nights,
 }) => (
   <DivOuterContainer isBookItFixed={isBookItFixed}>
     <DivInnerContainer>
@@ -32,6 +34,16 @@ const Reservations = ({
           handleGuestDropDown={handleGuestDropDown}
           handleOutsideDropDownClick={handleOutsideDropDownClick}
           postBooking={postBooking}
+          checkIn={checkIn}
+          checkOut={checkOut}
+          guests={guests}
+          handleChangeGuests={handleChangeGuests}
+          handleChangeCheckInOut={handleChangeCheckInOut}
+          isBillVisible={isBillVisible}
+          handleShowBill={handleShowBill}
+          billPricePerNight={billPricePerNight}
+          serviceFee={serviceFee}
+          nights={nights}
         />
         {isBookItFixed &&
         <ViewsCount isBookItFixed={isBookItFixed} views={views} />
@@ -50,6 +62,7 @@ Reservations.propTypes = {
   maxGuests: PropTypes.number.isRequired,
   minNightStay: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,
+  serviceFee: PropTypes.number.isRequired,
   addtlGuestFee: PropTypes.number.isRequired,
   dateDropDownActive: PropTypes.shape({
     checkIn: PropTypes.bool,
@@ -62,13 +75,27 @@ Reservations.propTypes = {
   postBooking: PropTypes.func.isRequired,
   isBookItFixed: PropTypes.bool.isRequired,
   views: PropTypes.number.isRequired,
+  checkIn: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  checkOut: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  guests: PropTypes.number.isRequired,
+  handleChangeGuests: PropTypes.func.isRequired,
+  handleChangeCheckInOut: PropTypes.func.isRequired,
+  handleShowBill: PropTypes.func.isRequired,
+  isBillVisible: PropTypes.bool.isRequired,
+  billPricePerNight: PropTypes.number.isRequired,
+  nights: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
   box-sizing: border-box;
   color: #484848;
-  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font: 14px Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.43;
   margin-left: 45px;
   width: 376px;
