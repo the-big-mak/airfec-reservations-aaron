@@ -49,9 +49,7 @@ const DivButtonOuterContainer = styled.div`
 
 const DivButtonInnerContainer = styled.div`
   color: rgb(72, 72, 72);
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font: 600 16px Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   margin: 0px;
   line-height: 22px;
   padding-top: 0px;

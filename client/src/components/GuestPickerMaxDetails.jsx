@@ -22,9 +22,7 @@ const DivTextContainer = styled.div`
 
 const DivText = styled.div`
   color: #484848;
-  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
-  font-size: 14px;
-  font-weight: normal;
+  font: normal 14px Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
   letter-spacing: normal;
   line-height: 18px;
   margin: 0px;
