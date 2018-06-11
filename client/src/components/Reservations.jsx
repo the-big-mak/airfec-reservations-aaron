@@ -4,14 +4,17 @@ import styled from 'styled-components';
 import NightlyRateAndStars from './NightlyRateAndStars';
 import BookItForm from './BookItForm';
 import ReportListing from './ReportListing';
+import ViewsCount from './ViewsCount';
 
 const Reservations = ({
   avgNightlyRate, stars, totRatings, availNights, maxGuests,
   minNightStay, cleaningFee, addtlGuestFee, dateDropDownActive,
   handleDateDropDown, guestDropDownActive, handleGuestDropDown,
-  handleOutsideDropDownClick, postBooking,
+  handleOutsideDropDownClick, postBooking, isBookItFixed, views,
+  checkIn, checkOut, guests, handleChangeGuests, handleChangeCheckInOut,
+  isBillVisible, handleShowBill, billPricePerNight, serviceFee, nights,
 }) => (
-  <DivOuterContainer>
+  <DivOuterContainer isBookItFixed={isBookItFixed}>
     <DivInnerContainer>
       <DivInnerMostContainer>
         <NightlyRateAndStars
@@ -31,7 +34,20 @@ const Reservations = ({
           handleGuestDropDown={handleGuestDropDown}
           handleOutsideDropDownClick={handleOutsideDropDownClick}
           postBooking={postBooking}
+          checkIn={checkIn}
+          checkOut={checkOut}
+          guests={guests}
+          handleChangeGuests={handleChangeGuests}
+          handleChangeCheckInOut={handleChangeCheckInOut}
+          isBillVisible={isBillVisible}
+          handleShowBill={handleShowBill}
+          billPricePerNight={billPricePerNight}
+          serviceFee={serviceFee}
+          nights={nights}
         />
+        {isBookItFixed &&
+        <ViewsCount isBookItFixed={isBookItFixed} views={views} />
+        }
       </DivInnerMostContainer>
     </DivInnerContainer>
     <ReportListing />
@@ -46,6 +62,7 @@ Reservations.propTypes = {
   maxGuests: PropTypes.number.isRequired,
   minNightStay: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,
+  serviceFee: PropTypes.number.isRequired,
   addtlGuestFee: PropTypes.number.isRequired,
   dateDropDownActive: PropTypes.shape({
     checkIn: PropTypes.bool,
@@ -56,19 +73,34 @@ Reservations.propTypes = {
   handleGuestDropDown: PropTypes.func.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
   postBooking: PropTypes.func.isRequired,
+  isBookItFixed: PropTypes.bool.isRequired,
+  views: PropTypes.number.isRequired,
+  checkIn: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  checkOut: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  guests: PropTypes.number.isRequired,
+  handleChangeGuests: PropTypes.func.isRequired,
+  handleChangeCheckInOut: PropTypes.func.isRequired,
+  handleShowBill: PropTypes.func.isRequired,
+  isBillVisible: PropTypes.bool.isRequired,
+  billPricePerNight: PropTypes.number.isRequired,
+  nights: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
   box-sizing: border-box;
   color: #484848;
-  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font: 14px Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.43;
   margin-left: 45px;
-  position: absolute;
-  top: 24px;
   width: 376px;
   -webkit-font-smoothing: antialiased;
+  ${props => (props.isBookItFixed ? 'position: fixed; top: 75px;' : 'position: absolute; top: 24px;')}
 `;
 const DivInnerContainer = styled.div`
   border: 1px solid #e4e4e4;

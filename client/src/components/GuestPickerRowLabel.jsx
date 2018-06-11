@@ -23,8 +23,8 @@ GuestPickerRowLabel.propTypes = {
 
 const DivOuterContainer = styled.div`
   display: table-cell;
-  width: 100%;
   vertical-align: middle;
+  width: 100%;
 `;
 
 const DivInnerContainer = styled.div`
@@ -34,9 +34,7 @@ const DivInnerContainer = styled.div`
 
 const DivLabelContainer = styled.div`
   color: rgb(72, 72, 72);
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font: 600 16px Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   line-height: 22px;
   padding-bottom: 0px;
   padding-top: 0px;

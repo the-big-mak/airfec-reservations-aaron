@@ -6,7 +6,7 @@ import DatePickerCalendarBackForwardButton from './DatePickerCalendarBackForward
 import DatePickerCalendarBody from './DatePickerCalendarBody';
 
 const DatePickerCalendarContainer = ({
-  availNights, prevMonth, nextMonth, threeMonths,
+  availNights, handleChangePrevMonth, handleChangeNextMonth, handleDateClick, threeMonths,
 }) => (
   <DivOuterContainer>
     <DivInnerContainerHeader>
@@ -21,17 +21,18 @@ const DatePickerCalendarContainer = ({
       <DivButtonsContainer>
         <DatePickerCalendarBackForwardButton
           position="left"
-          changeMonth={prevMonth}
+          handleChangeMonth={handleChangePrevMonth}
         />
         <DatePickerCalendarBackForwardButton
           position="right"
-          changeMonth={nextMonth}
+          handleChangeMonth={handleChangeNextMonth}
         />
       </DivButtonsContainer>
       <DivCalendarBodyContainer>
         <DatePickerCalendarBody
           availNights={availNights}
           threeMonths={threeMonths}
+          handleDateClick={handleDateClick}
         />
       </DivCalendarBodyContainer>
     </DivInnerContainerBody>
@@ -40,8 +41,9 @@ const DatePickerCalendarContainer = ({
 
 DatePickerCalendarContainer.propTypes = {
   availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
-  prevMonth: PropTypes.func.isRequired,
-  nextMonth: PropTypes.func.isRequired,
+  handleChangePrevMonth: PropTypes.func.isRequired,
+  handleChangeNextMonth: PropTypes.func.isRequired,
+  handleDateClick: PropTypes.func.isRequired,
   threeMonths: PropTypes.shape({
     prev: PropTypes.array,
     cur: PropTypes.array,
@@ -54,8 +56,8 @@ const DivOuterContainer = styled.div`
 `;
 
 const DivInnerContainerHeader = styled.div`
-  position: relative;
   margin-left: 9px;
+  position: relative;
 `;
 
 const DivInnerContainerHeaderInner = styled.div`

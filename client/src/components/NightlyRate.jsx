@@ -22,9 +22,7 @@ const DivInnerContainer = styled.div`
 const RateSpan = styled.span`
   color: rgb(72, 72, 72);
   display: inline;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  font-size: 19px;
-  font-weight: 800;
+  font: 800 19px Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   line-height: 26px;
   letter-spacing: normal;
   margin: 0px;
@@ -39,5 +37,8 @@ const PerNightSpan = RateSpan.extend`
   line-height: 16px;
   padding-left 2px;
 `;
+
+RateSpan.displayName = 'RateSpan';
+PerNightSpan.displayName = 'PerNightSpan';
 
 export default NightlyRate;

@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DatePickerCalendarMonth from './DatePickerCalendarMonth';
 
-const DatePickerCalendarBody = ({ threeMonths }) => (
+const DatePickerCalendarBody = ({ threeMonths, handleDateClick }) => (
   <DivOuterContainer>
     <DivPrevMonthContainer>
       <DatePickerCalendarMonth
         monthYear={threeMonths.prev[0]}
         monthWeekRows={threeMonths.prev[1]}
+        handleDateClick={handleDateClick}
       />
     </DivPrevMonthContainer>
     <DivCurMonthContainer>
       <DatePickerCalendarMonth
         monthYear={threeMonths.cur[0]}
         monthWeekRows={threeMonths.cur[1]}
+        handleDateClick={handleDateClick}
       />
     </DivCurMonthContainer>
     <DivNextMonthContainer>
       <DatePickerCalendarMonth
         monthYear={threeMonths.next[0]}
         monthWeekRows={threeMonths.next[1]}
+        handleDateClick={handleDateClick}
       />
     </DivNextMonthContainer>
   </DivOuterContainer>
@@ -32,6 +35,7 @@ DatePickerCalendarBody.propTypes = {
     cur: PropTypes.array,
     next: PropTypes.array,
   }).isRequired,
+  handleDateClick: PropTypes.func.isRequired,
 };
 
 const DivOuterContainer = styled.div`

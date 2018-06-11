@@ -30,8 +30,8 @@ GuestPickerRowPickerMinus.propTypes = {
 
 const DivOuterContainer = styled.div`
   display: table-cell;
-  vertical-align: middle;
   text-align: left;
+  vertical-align: middle;
 `;
 
 const ButtonContainer = styled.button`
@@ -54,8 +54,8 @@ const SpanContainer = styled.span`
   font-size: 16px;
   left: 50%;
   position: absolute;
-  transform: translate(-50%, -50%);
   top: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const SVGContainer = styled.svg`

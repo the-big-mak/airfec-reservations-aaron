@@ -6,7 +6,9 @@ import GuestPicker from './GuestPicker';
 const BookItFields = ({
   availNights, dateDropDownActive, handleDateDropDown,
   guestDropDownActive, handleGuestDropDown, maxGuests,
-  minNightStay, handleOutsideDropDownClick,
+  minNightStay, handleOutsideDropDownClick, checkIn,
+  checkOut, guests, handleChangeGuests, handleChangeCheckInOut,
+  handleShowBill,
 }) => (
   <div>
     <DatePicker
@@ -15,12 +17,19 @@ const BookItFields = ({
       handleDateDropDown={handleDateDropDown}
       minNightStay={minNightStay}
       handleOutsideDropDownClick={handleOutsideDropDownClick}
+      checkIn={checkIn}
+      checkOut={checkOut}
+      handleChangeCheckInOut={handleChangeCheckInOut}
+      handleShowBill={handleShowBill}
     />
     <GuestPicker
       guestDropDownActive={guestDropDownActive}
       handleGuestDropDown={handleGuestDropDown}
       maxGuests={maxGuests}
       handleOutsideDropDownClick={handleOutsideDropDownClick}
+      guests={guests}
+      handleChangeGuests={handleChangeGuests}
+      handleShowBill={handleShowBill}
     />
   </div>
 );
@@ -37,6 +46,18 @@ BookItFields.propTypes = {
   maxGuests: PropTypes.number.isRequired,
   minNightStay: PropTypes.number.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
+  checkIn: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  checkOut: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  guests: PropTypes.number.isRequired,
+  handleChangeGuests: PropTypes.func.isRequired,
+  handleChangeCheckInOut: PropTypes.func.isRequired,
+  handleShowBill: PropTypes.func.isRequired,
 };
 
 export default BookItFields;

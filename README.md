@@ -19,6 +19,8 @@
 
 > Some usage instructions
 
+This module is self-composed. At a certain scroll position, the module's position becomes fixed and a component appears showing the number of views. If you would like to set the default scrollY coordinates to something other than between forty and fifty, change these coordinates in the handleScroll method in App.jsx.
+
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).

@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const DatePickerCalendarRowDayCell = ({ day }) => {
+const DatePickerCalendarRowDayCell = ({ day, monthYear, handleDateClick }) => {
   if (!day.day) {
     return (<td />);
   }
   return (
-    <TableDayCell role="button" tabindex="-1" active={day.active}>
+    <TableDayCell
+      role="button"
+      tabindex="-1"
+      active={day.active}
+      onClick={e => handleDateClick(e, day, monthYear)}
+    >
       <Span>{day.day}</Span>
     </TableDayCell>
   );
@@ -18,6 +23,8 @@ DatePickerCalendarRowDayCell.propTypes = {
     day: PropTypes.number,
     active: PropTypes.bool,
   }).isRequired,
+  monthYear: PropTypes.string.isRequired,
+  handleDateClick: PropTypes.func.isRequired,
 };
 
 const TableDayCell = styled.td`

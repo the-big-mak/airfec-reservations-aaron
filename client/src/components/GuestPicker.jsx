@@ -20,10 +20,10 @@ export default class GuestPicker extends Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
   componentDidMount() {
-    document.addEventListener('click', this.handleOutsideClick, false);
+    document.addEventListener('click', this.handleOutsideClick);
   }
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick, false);
+    document.removeEventListener('click', this.handleOutsideClick);
   }
   handleAddGuests(e, label) {
     e.preventDefault();

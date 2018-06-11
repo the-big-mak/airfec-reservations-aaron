@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import axios from 'axios';
 import Reservations from './Reservations';
 
 export default class App extends Component {
   constructor() {
     super();
+    this.bookItRef = React.createRef();
     this.state = {
       avgNightlyRate: 0,
       stars: 0,
@@ -13,6 +15,7 @@ export default class App extends Component {
       maxGuests: 0,
       minNightStay: 0,
       cleaningFee: 0,
+      serviceFee: 2000,
       addtlGuestFee: 0,
       guestDropDownActive: false,
       dateDropDownActive: {
@@ -20,19 +23,50 @@ export default class App extends Component {
         checkOut: false,
       },
       roomId: window.location.pathname.split('/')[2],
+      isBookItFixed: false,
+      views: 367,
+      checkIn: moment().add(6, 'days').add(2, 'months'),
+      checkOut: '',
+      guests: 1,
+      isBillVisible: false,
+      billPricePerNight: 10000,
+      nights: 0,
     };
+    this.handleChangeCheckInOut = this.handleChangeCheckInOut.bind(this);
+    this.handleChangeGuests = this.handleChangeGuests.bind(this);
     this.handleDateDropDown = this.handleDateDropDown.bind(this);
     this.handleGuestDropDown = this.handleGuestDropDown.bind(this);
     this.handleOutsideDropDownClick = this.handleOutsideDropDownClick.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleShowBill = this.handleShowBill.bind(this);
     this.postBooking = this.postBooking.bind(this);
   }
   componentDidMount() {
+    document.addEventListener('scroll', this.handleScroll);
     this.fetchDetailsAndAvailNights();
+  }
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll);
   }
   fetchDetailsAndAvailNights() {
     axios.get(`/reservations/${this.state.roomId}`)
       .then(db => this.updateState(db.data))
       .catch(err => err);
+  }
+  handleChangeCheckInOut(checkInDate, checkOutDate) {
+    let { checkIn, checkOut } = this.state;
+    if (checkInDate !== undefined) {
+      checkIn = checkInDate;
+    } 
+    if (checkOutDate !== undefined) {
+      checkOut = checkOutDate;
+    }
+    this.setState({ checkIn, checkOut }, this.handleShowBill);
+  }
+  handleChangeGuests(num) {
+    let { guests } = this.state;
+    guests += num;
+    this.setState({ guests }, this.handleShowBill);
   }
   handleDateDropDown(e, checkInOut) {
     e.preventDefault();
@@ -44,15 +78,31 @@ export default class App extends Component {
     dateDropDownActive[checkInOut] = true;
     this.setState({ dateDropDownActive });
   }
+  handleGuestDropDown(e) {
+    e.preventDefault();
+    this.setState(prevState => ({ guestDropDownActive: !prevState.guestDropDownActive }));
+  }
   handleOutsideDropDownClick() {
     const dateDropDownActive = { ...this.state.dateDropDownActive };
     dateDropDownActive.checkIn = false;
     dateDropDownActive.checkOut = false;
     this.setState({ dateDropDownActive, guestDropDownActive: false });
   }
-  handleGuestDropDown(e) {
-    e.preventDefault();
-    this.setState(prevState => ({ guestDropDownActive: !prevState.guestDropDownActive }));
+  handleScroll() {
+    if (window.scrollY > 40 && window.scrollY < 50) {
+      this.setState({ isBookItFixed: true });
+    } else if (window.scrollY > 30 && window.scrollY < 40) {
+      this.setState({ isBookItFixed: false });
+    }
+  }
+  handleShowBill() {
+    if (this.state.checkIn && this.state.checkOut && this.state.guests) {
+      let { checkIn, checkOut } = this.state;
+      let nights = checkOut.diff(checkIn, 'days') + 1;
+      this.setState({ nights, isBillVisible: true })
+    } else {
+      this.setState({ isBillVisible: false })
+    }
   }
   postBooking() {
     axios.post(`/reservations/${this.state.roomId}`)
@@ -77,7 +127,7 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div ref={this.bookItRef}>
         <Reservations
           avgNightlyRate={this.state.avgNightlyRate}
           stars={this.state.stars}
@@ -86,6 +136,7 @@ export default class App extends Component {
           maxGuests={this.state.maxGuests}
           minNightStay={this.state.minNightStay}
           cleaningFee={this.state.cleaningFee}
+          serviceFee={this.state.serviceFee}
           addtlGuestFee={this.state.addtlGuestFee}
           dateDropDownActive={this.state.dateDropDownActive}
           handleDateDropDown={this.handleDateDropDown}
@@ -93,6 +144,17 @@ export default class App extends Component {
           handleGuestDropDown={this.handleGuestDropDown}
           handleOutsideDropDownClick={this.handleOutsideDropDownClick}
           postBooking={this.postBooking}
+          isBookItFixed={this.state.isBookItFixed}
+          views={this.state.views}
+          checkIn={this.state.checkIn}
+          checkOut={this.state.checkOut}
+          guests={this.state.guests}
+          handleChangeGuests={this.handleChangeGuests}
+          handleChangeCheckInOut={this.handleChangeCheckInOut}
+          isBillVisible={this.state.isBillVisible}
+          handleShowBill={this.handleShowBill}
+          billPricePerNight={this.state.billPricePerNight}
+          nights={this.state.nights}
         />
       </div>
     );
