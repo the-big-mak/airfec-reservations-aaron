@@ -1,26 +1,14 @@
 import moment from 'moment';
 
 module.exports = {
-  year: dateContext => dateContext.format('Y'),
-  month: dateContext => dateContext.format('MMMM'),
-  monthAndYear: dateContext => dateContext.format('MMMM YYYY'),
-  daysInMonth: dateContext => dateContext.daysInMonth(),
-  threeMonthsFromNow: () => moment().add(6, 'days').add(3, 'months').format('MM/DD/YYYY'),
-  currentDay: dateContext => dateContext.format('D'),
   firstDayOfMonth: (dateContext) => {
     const d = dateContext;
     const firstDay = moment(d).startOf('month').format('d');
     return firstDay;
   },
   getArrayOfRowWeeksArrays: (dateContext) => {
-    const blanks = [];
-    for (let i = 0; i < module.exports.firstDayOfMonth(dateContext); i += 1) {
-      blanks.push({ day: null, active: null });
-    }
-    const daysInMonth = [];
-    for (let d = 1; d <= module.exports.daysInMonth(dateContext); d += 1) {
-      daysInMonth.push({ day: d, active: true });
-    }
+    const blanks = module.exports.getBlanksArr(dateContext);
+    const daysInMonth = module.exports.getDaysInMonthArr(dateContext);
     const totalSlots = [...blanks, ...daysInMonth];
     const rows = [];
     let cells = [];
@@ -40,4 +28,26 @@ module.exports = {
     });
     return rows;
   },
+  getBlanksArr: (dateContext) => {
+    const blanksArr = [];
+    for (let i = 0; i < module.exports.firstDayOfMonth(dateContext); i += 1) {
+      blanksArr.push({ day: null, active: null });
+    }
+    return blanksArr;
+  },
+  getDaysInMonthArr: (dateContext) => {
+    const daysInMonthArr = [];
+    const daysInMonthNum = dateContext.daysInMonth();
+    for (let d = 1; d <= daysInMonthNum; d += 1) {
+      daysInMonthArr.push({ day: d, active: true });
+    }
+    return daysInMonthArr;
+  },
+  getMomentDateFromDayAndMonthYear: (day, monthYear) => {
+    const dateArr = monthYear.split(' ');
+    dateArr.splice(1, 0, day);
+    const momentDate = moment(dateArr.join(' '), 'MMMM D YYYY');
+    return momentDate;
+  },
+  monthAndYear: dateContext => dateContext.format('MMMM YYYY'),
 };
