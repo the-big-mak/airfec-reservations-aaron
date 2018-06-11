@@ -1,13 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const BookingButton = () => (
+const BookingButton = ({ isBillVisible }) => (
   <Button>
     <SpanButtonText>
-      <DivButtonText>Request to Book</DivButtonText>
+      <DivButtonText>{isBillVisible ? 'Book' : 'Request to Book'}</DivButtonText>
     </SpanButtonText>
   </Button>
 );
+
+BookingButton.propTypes = {
+  isBillVisible: PropTypes.bool.isRequired,
+};
 
 const Button = styled.button`
   background: #FF5A5F;
@@ -17,9 +22,7 @@ const Button = styled.button`
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  font-size: 16px;
-  font-weight: 800;
+  font: 800 16px Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   line-height: 21px;
   margin-top: 24px;
   min-width: 78px;
@@ -27,14 +30,8 @@ const Button = styled.button`
   position: relative;
   text-align: center;
   text-decoration: none;
-  transition-duration: 0.2s;
-  transition-property: background, border-color, color;
-  transition-timing-function: ease-out;
+  transition: background, border-color, color 0.2s ease-out;
   width: 100%;
-  -webkit-transition-duration: 0.2s;
-  -webkit-transition-property: background, border-color, color;
-  -webkit-transition-timing-function: ease-out;
-  -moz-transition-property: background, border-color, color;
 `;
 
 const SpanButtonText = styled.span`
