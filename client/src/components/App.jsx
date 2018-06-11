@@ -98,7 +98,7 @@ export default class App extends Component {
   handleShowBill() {
     if (this.state.checkIn && this.state.checkOut && this.state.guests) {
       let { checkIn, checkOut } = this.state;
-      let nights = checkOut.diff(checkIn, 'days')
+      let nights = checkOut.diff(checkIn, 'days') + 1;
       this.setState({ nights, isBillVisible: true })
     } else {
       this.setState({ isBillVisible: false })
