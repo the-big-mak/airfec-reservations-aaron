@@ -53,4 +53,7 @@ const VectorStar = styled.svg`
   width: 1em;
 `;
 
+SpanStar.displayName = 'SpanStar';
+SpanHalfStar.displayName = 'SpanHalfStar';
+
 export default Star;
