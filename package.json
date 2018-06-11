@@ -3,13 +3,22 @@
   "description": "A reservations module for AirFeC, a website inpsired by Airbnb.",
   "author": "Aaron Tesfai",
   "version": "1.0.0",
+  "jest": {
+    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "setupFiles": [
+      "./client/spec/setupTests.js"
+    ]
+  },
   "main": "index.js",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "react-dev": "webpack -d --watch",
     "start": "nodemon server/server.js",
-    "react-dev": "webpack -d --watch"
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "test-coverage": "jest --coverage"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -25,6 +34,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -37,7 +47,10 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
+    "install": "^0.11.0",
     "jest": "^23.1.0",
+    "jest-enzyme": "^6.0.1",
+    "npm": "^6.1.0",
     "webpack": "^4.10.2",
     "webpack-cli": "^3.0.2"
   },
