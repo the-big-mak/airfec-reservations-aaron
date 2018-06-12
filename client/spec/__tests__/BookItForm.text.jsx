@@ -1,5 +1,5 @@
 import React from 'react';
-import BookItForm from './../../src/components/BookItForm';
+import BookItForm from '../../src/components/BookItForm';
 
 describe('BookItForm component', () => {
   let props;
@@ -21,6 +21,17 @@ describe('BookItForm component', () => {
       guestDropDownActive: false,
       handleGuestDropDown: () => {},
       handleOutsideDropDownClick: () => {},
+      checkIn: {},
+      checkOut: {},
+      guests: 0,
+      handleChangeGuests: () => {},
+      handleChangeCheckInOut: () => {},
+      handleShowBill: () => {},
+      isBillVisible: true,
+      billPricePerNight: 0,
+      serviceFee: 0,
+      nights: 0,
+      cleaningFee: 0,
     };
     shallowBookItForm = undefined;
   });

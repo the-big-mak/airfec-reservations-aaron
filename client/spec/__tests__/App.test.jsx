@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './../../src/components/App';
+import App from '../../src/components/App';
 
 describe('App component', () => {
   it('should render a Reservations component', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import NightlyRate from './../../src/components/NightlyRate';
+import NightlyRate from '../../src/components/NightlyRate';
 
 describe('NightlyRate component', () => {
   let props;

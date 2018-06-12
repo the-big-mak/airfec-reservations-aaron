@@ -1,5 +1,5 @@
 import React from 'react';
-import Stars from './../../src/components/Stars';
+import Stars from '../../src/components/Stars';
 
 describe('Stars component', () => {
   let props;

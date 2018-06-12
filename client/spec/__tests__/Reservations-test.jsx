@@ -1,5 +1,5 @@
 import React from 'react';
-import Reservations from './../../src/components/Reservations';
+import Reservations from '../../src/components/Reservations';
 
 describe('Reservations component', () => {
   let props;
@@ -29,6 +29,16 @@ describe('Reservations component', () => {
       postBooking: () => {},
       isBookItFixed: false,
       views: 0,
+      serviceFee: 0,
+      checkIn: {},
+      checkOut: {},
+      guests: 0,
+      handleChangeGuests: () => {},
+      handleChangeCheckInOut: () => {},
+      handleShowBill: () => {},
+      isBillVisible: true,
+      billPricePerNight: 0,
+      nights: 0,
     };
     shallowReservations = undefined;
   });
