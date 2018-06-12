@@ -1,5 +1,5 @@
 import React from 'react';
-import NightlyRateAndStars from './../../src/components/NightlyRateAndStars';
+import NightlyRateAndStars from '../../src/components/NightlyRateAndStars';
 
 describe('NightlyRateAndStars component', () => {
   let props;

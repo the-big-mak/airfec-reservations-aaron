@@ -7,6 +7,7 @@ const ReportListing = () => (
 
 const DivContainer = styled.div`
   line-height: 1.43;
+  text-align: center;
 `;
 
 export default ReportListing;

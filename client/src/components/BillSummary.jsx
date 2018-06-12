@@ -4,19 +4,23 @@ import styled from 'styled-components';
 import BillSummaryItem from './BillSummaryItem';
 
 const BillSummary = ({
-  nights, guests, billPricePerNight, serviceFee, cleaningFee
-}) => (
-  <DivOuterContainer>
-    <BillSummaryItem type="PerNight" price={billPricePerNight} nights={nights} />
-    <BillSummaryItem type="Cleaning fee" price={cleaningFee} />
-    <BillSummaryItem type="Service fee" price={serviceFee} />
-    <BillSummaryItem type="Total" price={((billPricePerNight / 100) * nights) + (cleaningFee / 100) + (serviceFee / 100)} />
-  </DivOuterContainer>
-);
+  nights, billPricePerNight, serviceFee, cleaningFee,
+}) => {
+  const totalPrice = ((billPricePerNight / 100) * nights) + (cleaningFee / 100)
+    + (serviceFee / 100);
+  const items = [['PerNight', billPricePerNight], ['Cleaning fee', cleaningFee],
+    ['Service fee', serviceFee], ['Total', totalPrice]];
+  return (
+    <DivOuterContainer>
+      {items.map(item => (
+        <BillSummaryItem type={item[0]} price={item[1]} nights={nights} key={item[1]} />))
+      }
+    </DivOuterContainer>
+  );
+};
 
 BillSummary.propTypes = {
   nights: PropTypes.number.isRequired,
-  guests: PropTypes.number.isRequired,
   billPricePerNight: PropTypes.number.isRequired,
   serviceFee: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,

@@ -11,9 +11,9 @@ const DatePickerCalendarRowDayCell = ({ day, monthYear, handleDateClick }) => {
       role="button"
       tabindex="-1"
       active={day.active}
-      onClick={e => handleDateClick(e, day, monthYear)}
+      onClick={e => (day.active ? handleDateClick(e, day, monthYear) : null)}
     >
-      <Span>{day.day}</Span>
+      <Span active={day.active}>{day.day}</Span>
     </TableDayCell>
   );
 };
@@ -38,10 +38,13 @@ const TableDayCell = styled.td`
   text-align: center;
   width: 39px;
   ${props => props.active && 'color: rgb(72, 72, 72); cursor: pointer;'}
+  &:hover {
+    ${props => props.active && 'background: rgb(228, 231, 231); color: inherit;'}
+  }
 `;
 
 const Span = styled.span`
-  ${props => props.active && 'text-decoration: line-through;'}
+  ${props => !props.active && 'text-decoration: line-through;'}
 `;
 
 export default DatePickerCalendarRowDayCell;

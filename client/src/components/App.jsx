@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import Reservations from './Reservations';
+import DateTwoMonths from './DateTwoMonths';
 
 export default class App extends Component {
   constructor() {
@@ -31,7 +32,12 @@ export default class App extends Component {
       isBillVisible: false,
       billPricePerNight: 10000,
       nights: 0,
+      prevDateContext: moment().add(1, 'months'),
+      curDateContext: moment().add(2, 'months'),
+      nextDateContext: moment().add(3, 'months'),
+      futureDateContext: moment().add(4, 'months'),
     };
+    this.changeMonth = this.changeMonth.bind(this);
     this.handleChangeCheckInOut = this.handleChangeCheckInOut.bind(this);
     this.handleChangeGuests = this.handleChangeGuests.bind(this);
     this.handleDateDropDown = this.handleDateDropDown.bind(this);
@@ -48,6 +54,11 @@ export default class App extends Component {
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
   }
+  changeMonth(dc, type) {
+    let dateContext = { ...this.state[dc] };
+    dateContext = moment(dateContext)[type](1, 'month');
+    this.setState({ [dc]: dateContext });
+  }
   fetchDetailsAndAvailNights() {
     axios.get(`/reservations/${this.state.roomId}`)
       .then(db => this.updateState(db.data))
@@ -57,7 +68,7 @@ export default class App extends Component {
     let { checkIn, checkOut } = this.state;
     if (checkInDate !== undefined) {
       checkIn = checkInDate;
-    } 
+    }
     if (checkOutDate !== undefined) {
       checkOut = checkOutDate;
     }
@@ -152,9 +163,20 @@ export default class App extends Component {
           handleChangeGuests={this.handleChangeGuests}
           handleChangeCheckInOut={this.handleChangeCheckInOut}
           isBillVisible={this.state.isBillVisible}
-          handleShowBill={this.handleShowBill}
           billPricePerNight={this.state.billPricePerNight}
           nights={this.state.nights}
+          prevDateContext={this.state.prevDateContext}
+          curDateContext={this.state.curDateContext}
+          nextDateContext={this.state.nextDateContext}
+          changeMonth={this.changeMonth}
+        />
+        <DateTwoMonths
+          availNights={this.state.availNights}
+          prevDateContext={this.state.prevDateContext}
+          curDateContext={this.state.curDateContext}
+          nextDateContext={this.state.nextDateContext}
+          futureDateContext={this.state.futureDateContext}
+          changeMonth={this.changeMonth}
         />
       </div>
     );

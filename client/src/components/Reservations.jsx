@@ -12,7 +12,8 @@ const Reservations = ({
   handleDateDropDown, guestDropDownActive, handleGuestDropDown,
   handleOutsideDropDownClick, postBooking, isBookItFixed, views,
   checkIn, checkOut, guests, handleChangeGuests, handleChangeCheckInOut,
-  isBillVisible, handleShowBill, billPricePerNight, serviceFee, nights,
+  isBillVisible, billPricePerNight, serviceFee, nights,
+  prevDateContext, curDateContext, nextDateContext, changeMonth,
 }) => (
   <DivOuterContainer isBookItFixed={isBookItFixed}>
     <DivInnerContainer>
@@ -40,10 +41,13 @@ const Reservations = ({
           handleChangeGuests={handleChangeGuests}
           handleChangeCheckInOut={handleChangeCheckInOut}
           isBillVisible={isBillVisible}
-          handleShowBill={handleShowBill}
           billPricePerNight={billPricePerNight}
           serviceFee={serviceFee}
           nights={nights}
+          prevDateContext={prevDateContext}
+          curDateContext={curDateContext}
+          nextDateContext={nextDateContext}
+          changeMonth={changeMonth}
         />
         {isBookItFixed &&
         <ViewsCount isBookItFixed={isBookItFixed} views={views} />
@@ -86,10 +90,22 @@ Reservations.propTypes = {
   guests: PropTypes.number.isRequired,
   handleChangeGuests: PropTypes.func.isRequired,
   handleChangeCheckInOut: PropTypes.func.isRequired,
-  handleShowBill: PropTypes.func.isRequired,
   isBillVisible: PropTypes.bool.isRequired,
   billPricePerNight: PropTypes.number.isRequired,
   nights: PropTypes.number.isRequired,
+  prevDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  curDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  nextDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  changeMonth: PropTypes.func.isRequired,
 };
 
 const DivOuterContainer = styled.div`

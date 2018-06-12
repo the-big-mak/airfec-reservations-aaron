@@ -4,10 +4,7 @@
   "author": "Aaron Tesfai",
   "version": "1.0.0",
   "jest": {
-    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
-    "setupFiles": [
-      "./client/spec/setupTests.js"
-    ]
+    "setupTestFrameworkScriptFile": "./client/spec/setupTests.js"
   },
   "main": "index.js",
   "engines": {

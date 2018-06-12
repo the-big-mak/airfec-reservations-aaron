@@ -80,6 +80,7 @@ const ListCalendarDayOfWeekRow = styled.ul`
 
 const DivInnerContainerBody = styled.div`
   outline: none;
+  transform 200ms ease-in-out 0s;
 `;
 
 const DivButtonsContainer = styled.div`

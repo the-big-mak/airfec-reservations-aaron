@@ -12,9 +12,6 @@ export default class DatePicker extends Component {
     super(props);
     this.dropDownRef = React.createRef();
     this.state = {
-      prevDateContext: moment().add(1, 'months'),
-      curDateContext: moment().add(2, 'months'),
-      nextDateContext: moment().add(3, 'months'),
       threeMonths: { prev: [], cur: [], next: [] },
     };
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -26,16 +23,24 @@ export default class DatePicker extends Component {
     document.addEventListener('click', this.handleOutsideClick);
     this.getThreeMonths();
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.availNights !== prevProps.availNights) {
+      this.getThreeMonths();
+    }
+    if (this.props.curDateContext !== prevProps.curDateContext) {
+      this.getThreeMonths();
+    }
+  }
   componentWillUnmount() {
     document.removeEventListener('click', this.handleOutsideClick);
   }
   getThreeMonths() {
     const threeMonths = [
-      ['prev', this.state.prevDateContext],
-      ['cur', this.state.curDateContext],
-      ['next', this.state.nextDateContext],
+      ['prev', this.props.prevDateContext],
+      ['cur', this.props.curDateContext],
+      ['next', this.props.nextDateContext],
     ].reduce((acc, month) => {
-      const monthWksArr = momentHlpr.getArrayOfRowWeeksArrays(month[1]);
+      const monthWksArr = momentHlpr.getArrayOfRowWeeksArrays(month[1], this.props.availNights);
       const monthAndYear = momentHlpr.monthAndYear(month[1]);
       acc[month[0]] = [monthAndYear, monthWksArr];
       return acc;
@@ -43,28 +48,34 @@ export default class DatePicker extends Component {
     this.setState({ threeMonths });
   }
   handleChangePrevMonth() {
-    ['prevDateContext', 'curDateContext', 'nextDateContext'].forEach(el => this.changeMonth(el, 'subtract'));
+    ['prevDateContext', 'curDateContext', 'nextDateContext', 'futureDateContext']
+      .forEach(el => this.props.changeMonth(el, 'subtract'));
   }
   handleChangeNextMonth() {
-    ['prevDateContext', 'curDateContext', 'nextDateContext'].forEach(el => this.changeMonth(el, 'add'));
+    ['prevDateContext', 'curDateContext', 'nextDateContext', 'futureDateContext']
+      .forEach(el => this.props.changeMonth(el, 'add'));
   }
-  changeMonth(dc, type) {
-    let dateContext = { ...this.state[dc] };
-    dateContext = moment(dateContext)[type](1, 'month');
-    this.setState({ [dc]: dateContext }, () => this.getThreeMonths());
+  handleChangeCheckOut(momentCheckOut) {
+    const momentCheckIn = { ...this.props.checkIn };
+    const minFutureDate = moment(momentCheckIn).add(this.props.minNightStay - 1, 'days');
+    if (momentCheckOut.isAfter(minFutureDate)) {
+      if (momentHlpr.isAllDatesInBetweenAvail(
+        moment(momentCheckIn),
+        momentCheckOut, this.props.availNights,
+      )) {
+        this.props.handleChangeCheckInOut(undefined, momentCheckOut);
+      }
+    }
+    // else {
+    //   this.props.handleChangeCheckInOut(momentDate, '');
+    // }
   }
   handleDateClick(e, day, monthYear) {
     e.preventDefault();
-    const dateArr = monthYear.split(' ');
-    dateArr.splice(1, 0, day.day);
-    const momentDate = moment(dateArr.join(' '), 'MMMM D YYYY');
+    const momentDate = momentHlpr.getMomentDateFromDayAndMonthYear(day.day, monthYear);
     const checkInOut = this.props.dateDropDownActive.checkIn ? 'checkIn' : 'checkOut';
     if (checkInOut === 'checkOut') {
-      if (momentDate.isAfter(this.props.checkIn)) {
-        this.props.handleChangeCheckInOut(undefined, momentDate);
-      } else {
-        this.props.handleChangeCheckInOut(momentDate, '');
-      }
+      this.handleChangeCheckOut(momentDate);
     } else if (checkInOut === 'checkIn') {
       this.props.handleChangeCheckInOut(momentDate, '');
     }
@@ -151,7 +162,19 @@ DatePicker.propTypes = {
     PropTypes.object,
   ]).isRequired,
   handleChangeCheckInOut: PropTypes.func.isRequired,
-  handleShowBill: PropTypes.func.isRequired,
+  prevDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  curDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  nextDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  changeMonth: PropTypes.func.isRequired,
 };
 
 const DivContainer = styled.div`

@@ -10,7 +10,8 @@ const BookItForm = ({
   guestDropDownActive, handleGuestDropDown, maxGuests,
   minNightStay, handleOutsideDropDownClick, checkIn, checkOut,
   guests, handleChangeGuests, handleChangeCheckInOut, isBillVisible,
-  handleShowBill, billPricePerNight, serviceFee, nights, cleaningFee,
+  billPricePerNight, serviceFee, nights, cleaningFee,
+  prevDateContext, curDateContext, nextDateContext, changeMonth,
 }) => (
   <form>
     <BookItFields
@@ -27,7 +28,10 @@ const BookItForm = ({
       guests={guests}
       handleChangeGuests={handleChangeGuests}
       handleChangeCheckInOut={handleChangeCheckInOut}
-      handleShowBill={handleShowBill}
+      prevDateContext={prevDateContext}
+      curDateContext={curDateContext}
+      nextDateContext={nextDateContext}
+      changeMonth={changeMonth}
     />
     {isBillVisible &&
     <BillSummary
@@ -69,11 +73,23 @@ BookItForm.propTypes = {
   handleChangeGuests: PropTypes.func.isRequired,
   handleChangeCheckInOut: PropTypes.func.isRequired,
   isBillVisible: PropTypes.bool.isRequired,
-  handleShowBill: PropTypes.func.isRequired,
   billPricePerNight: PropTypes.number.isRequired,
   serviceFee: PropTypes.number.isRequired,
   nights: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,
+  prevDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  curDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  nextDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  changeMonth: PropTypes.func.isRequired,
 };
 
 const DivNotChargedYet = styled.div`
