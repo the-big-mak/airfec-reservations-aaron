@@ -21,7 +21,7 @@ const BillSummaryItem = ({ type, price, nights }) => (
 BillSummaryItem.propTypes = {
   type: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  nights: PropTypes.string.isRequired,
+  nights: PropTypes.number.isRequired,
 };
 
 const DivTextOuterContainer = styled.div`
