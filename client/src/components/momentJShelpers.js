@@ -6,9 +6,9 @@ module.exports = {
     const firstDay = moment(d).startOf('month').format('d');
     return firstDay;
   },
-  getArrayOfRowWeeksArrays: (dateContext) => {
+  getArrayOfRowWeeksArrays: (dateContext, availNightsArr) => {
     const blanks = module.exports.getBlanksArr(dateContext);
-    const daysInMonth = module.exports.getDaysInMonthArr(dateContext);
+    const daysInMonth = module.exports.getDaysInMonthArr(dateContext, availNightsArr);
     const totalSlots = [...blanks, ...daysInMonth];
     const rows = [];
     let cells = [];
@@ -35,11 +35,14 @@ module.exports = {
     }
     return blanksArr;
   },
-  getDaysInMonthArr: (dateContext) => {
+  getDaysInMonthArr: (dateContext, availNightsArr) => {
     const daysInMonthArr = [];
     const daysInMonthNum = dateContext.daysInMonth();
+    let day;
     for (let d = 1; d <= daysInMonthNum; d += 1) {
-      daysInMonthArr.push({ day: d, active: true });
+      day = { day: d };
+      day.active = module.exports.isDayActive(dateContext, d, availNightsArr);
+      daysInMonthArr.push(day);
     }
     return daysInMonthArr;
   },
@@ -48,6 +51,28 @@ module.exports = {
     dateArr.splice(1, 0, day);
     const momentDate = moment(dateArr.join(' '), 'MMMM D YYYY');
     return momentDate;
+  },
+  isAllDatesInBetweenAvail(momentCheckIn, momentCheckOut, availNightsArr) {
+    let bool = true;
+    const now = momentCheckIn.clone();
+    while (now.isSameOrBefore(momentCheckOut)) {
+      // Expensive time complexity.
+      if (!availNightsArr.some(availDay => moment(availDay.avail_date).isSame(now))) {
+        bool = false;
+      }
+      now.add(1, 'days');
+    }
+    return bool;
+  },
+  isDayActive: (dateContext, day, availNightsArr) => {
+    const d = dateContext;
+    let isActive = false;
+    d.date(day);
+    // Expensive time complexity.
+    if (availNightsArr.some(availDay => moment(availDay.avail_date).isSame(d, 'day'))) {
+      isActive = true;
+    }
+    return isActive;
   },
   monthAndYear: dateContext => dateContext.format('MMMM YYYY'),
 };
