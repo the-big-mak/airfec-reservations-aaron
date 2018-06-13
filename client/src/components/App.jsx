@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {
+  updateDBData, changeMonth, changeCheckInOut, changeGuests, updateDateDropDownActive,
+  toggleGuestDropDown, handleOutsideDropDownClick, setIsBookItFixed, handleShowBill,
+} from '../actions/actions';
 import Reservations from './Reservations';
 
 class App extends Component {
@@ -13,9 +17,9 @@ class App extends Component {
     this.handleChangeGuests = this.handleChangeGuests.bind(this);
     this.handleDateDropDown = this.handleDateDropDown.bind(this);
     this.handleGuestDropDown = this.handleGuestDropDown.bind(this);
-    this.handleOutsideDropDownClick = this.handleOutsideDropDownClick.bind(this);
+    this.handleOutsideDropDownClickApp = this.handleOutsideDropDownClickApp.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
-    this.handleShowBill = this.handleShowBill.bind(this);
+    this.handleShowBillApp = this.handleShowBillApp.bind(this);
     this.postBooking = this.postBooking.bind(this);
   }
   componentDidMount() {
@@ -26,11 +30,7 @@ class App extends Component {
     document.removeEventListener('scroll', this.handleScroll);
   }
   changeMonth(dc, typeOperator) {
-    this.props.dispatch({
-      type: 'CHANGE_MONTH',
-      dc,
-      typeOperator,
-    });
+    this.props.changeMonth(dc, typeOperator);
   }
   fetchDetailsAndAvailNights() {
     axios.get(`/reservations/${this.props.roomId}`)
@@ -45,20 +45,13 @@ class App extends Component {
     if (checkOutDate !== undefined) {
       checkOut = checkOutDate;
     }
-    this.props.dispatch({
-      type: 'CHANGE_CHECK_IN_OR_OUT',
-      checkIn,
-      checkOut,
-    });
-    this.handleShowBill(checkIn, checkOut);
+    this.props.changeCheckInOut(checkIn, checkOut);
+    this.handleShowBillApp(checkIn, checkOut);
   }
   handleChangeGuests(num) {
     let { guests } = this.props;
     guests += num;
-    this.props.dispatch({
-      type: 'CHANGE_GUESTS',
-      guests,
-    });
+    this.props.changeGuests(guests);
   }
   handleDateDropDown(e, checkInOut) {
     e.preventDefault();
@@ -68,53 +61,31 @@ class App extends Component {
       dateDropDownActive[checkInOrOutPair] = false;
     }
     dateDropDownActive[checkInOut] = true;
-    this.props.dispatch({
-      type: 'DATE_DROP_DOWN_ACTIVE',
-      dateDropDownActive,
-    });
+    this.props.updateDateDropDownActive(dateDropDownActive);
   }
   handleGuestDropDown(e) {
     e.preventDefault();
-    this.props.dispatch({
-      type: 'GUEST_DROP_DOWN_ACTIVE',
-    });
+    this.props.toggleGuestDropDown();
   }
-  handleOutsideDropDownClick() {
+  handleOutsideDropDownClickApp() {
     const dateDropDownActive = { ...this.props.dateDropDownActive };
     dateDropDownActive.checkIn = false;
     dateDropDownActive.checkOut = false;
-    this.props.dispatch({
-      type: 'OUTSIDE_DROP_DOWN_CLICK',
-      dateDropDownActive,
-    });
+    this.props.handleOutsideDropDownClick(dateDropDownActive);
   }
   handleScroll() {
     if (window.scrollY > 40 && window.scrollY < 50) {
-      this.props.dispatch({
-        type: 'SET_BOOK_IT_FIXED',
-        isBookItFixed: true,
-      });
+      this.props.setIsBookItFixed(true);
     } else if (window.scrollY > 30 && window.scrollY < 40) {
-      this.props.dispatch({
-        type: 'SET_BOOK_IT_FIXED',
-        isBookItFixed: false,
-      });
+      this.props.setIsBookItFixed(false);
     }
   }
-  handleShowBill(checkIn, checkOut) {
+  handleShowBillApp(checkIn, checkOut) {
     if (checkIn && checkOut && this.props.guests) {
       const nights = checkOut.diff(checkIn, 'days');
-      this.props.dispatch({
-        type: 'SHOW_BILL',
-        nightsUpd: nights,
-        isBillVisible: true,
-      });
+      this.props.handleShowBill(nights, true);
     } else {
-      this.props.dispatch({
-        type: 'SHOW_BILL',
-        nightsUpd: null,
-        isBillVisible: false,
-      });
+      this.props.handleShowBill(null, false);
     }
   }
   postBooking() {
@@ -127,11 +98,7 @@ class App extends Component {
       const accESLint = night.rate > acc ? night.rate : acc;
       return accESLint;
     }, 0) || 11500;
-    this.props.dispatch({
-      type: 'UPDATE_DB_DATA',
-      data,
-      avgNightlyRate,
-    });
+    this.props.updateDBData(data, avgNightlyRate);
   }
   render() {
     return (
@@ -150,7 +117,7 @@ class App extends Component {
           handleDateDropDown={this.handleDateDropDown}
           guestDropDownActive={this.props.guestDropDownActive}
           handleGuestDropDown={this.handleGuestDropDown}
-          handleOutsideDropDownClick={this.handleOutsideDropDownClick}
+          handleOutsideDropDownClick={this.handleOutsideDropDownClickApp}
           postBooking={this.postBooking}
           isBookItFixed={this.props.isBookItFixed}
           views={this.props.views}
@@ -250,8 +217,26 @@ App.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
-  dispatch: PropTypes.func.isRequired,
   roomId: PropTypes.string.isRequired,
+  updateDBData: PropTypes.func.isRequired,
+  changeMonth: PropTypes.func.isRequired,
+  changeCheckInOut: PropTypes.func.isRequired,
+  changeGuests: PropTypes.func.isRequired,
+  updateDateDropDownActive: PropTypes.func.isRequired,
+  toggleGuestDropDown: PropTypes.func.isRequired,
+  handleOutsideDropDownClick: PropTypes.func.isRequired,
+  setIsBookItFixed: PropTypes.func.isRequired,
+  handleShowBill: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {
+  updateDBData,
+  changeMonth,
+  changeCheckInOut,
+  changeGuests,
+  updateDateDropDownActive,
+  toggleGuestDropDown,
+  handleOutsideDropDownClick,
+  setIsBookItFixed,
+  handleShowBill,
+})(App);
