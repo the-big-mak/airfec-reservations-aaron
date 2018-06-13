@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const NightlyRate = ({ avgNightlyRate }) => (
   <div>
-    <DivInnerContainer>
+    <DivInnerContainer avgNightlyRate={avgNightlyRate}>
       <RateSpan>${Math.floor(avgNightlyRate / 100)}</RateSpan>
       <PerNightSpan>per night</PerNightSpan>
     </DivInnerContainer>

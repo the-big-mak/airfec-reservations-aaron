@@ -4,7 +4,12 @@
   "author": "Aaron Tesfai",
   "version": "1.0.0",
   "jest": {
-    "setupTestFrameworkScriptFile": "./client/spec/setupTests.js"
+    "setupTestFiles": "./client/spec/setupTests.js",
+    "setupTestFrameworkScriptFile": "",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./client/src/components/*.{js,jsx}"
+    ]
   },
   "main": "index.js",
   "engines": {
@@ -26,6 +31,8 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "styled-components": "^3.3.2"
   },
   "devDependencies": {

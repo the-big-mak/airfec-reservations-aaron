@@ -47,7 +47,19 @@ export default class DateTwoMonths extends Component {
   render() {
     return (
       <DivOuterContainer>
-        Hello World.
+        <Section>
+          <DivHeaderContainer>
+            <Header>
+              <DivInnerHeaderContainer>
+                <span>Availability</span>
+              </DivInnerHeaderContainer>
+            </Header>
+          </DivHeaderContainer>
+          <div/>
+          <DivBorderContainer>
+            <DivBorder />
+          </DivBorderContainer>
+        </Section>
       </DivOuterContainer>
     );
   }
@@ -75,5 +87,41 @@ DateTwoMonths.propTypes = {
 };
 
 const DivOuterContainer = styled.div`
+  margin-bottom: 0;
+`;
 
+const Section = styled.section`
+  display: block;
+`;
+
+const DivHeaderContainer = styled.div`
+  margin-bottom: 16px;
+`;
+
+const Header = styled.h2`
+  color: inherit;
+  display: inline;
+  font-size: 1em;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
+`;
+
+const DivInnerHeaderContainer = styled.div`
+  color: #484848;
+  font: 800 14px Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+  letter-spacing: normal;
+  line-height: 22px;
+  margin: 0px;
+  word-wrap: break-word;
+`;
+
+const DivBorderContainer = styled.div`
+  margin-bottom: 24px;
+  margin-top: 24px;
+`;
+
+const DivBorder = styled.div`
+  border-bottom: 1px solid #DBDBDB;
 `;
