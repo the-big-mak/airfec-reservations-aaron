@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS rooms (
 CREATE TABLE IF NOT EXISTS nights (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   room_id INT,
-  avail_date date NOT NULL,
+  avail_date DATE NOT NULL,
   rate INT NOT NULL,
   is_avail TINYINT DEFAULT 1,
   UNIQUE KEY room_date (room_id, avail_date),

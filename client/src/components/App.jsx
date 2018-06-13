@@ -94,10 +94,7 @@ class App extends Component {
       .catch(err => err);
   }
   updateState(data) {
-    const avgNightlyRate = data[1].reduce((acc, night) => {
-      const accESLint = night.rate > acc ? night.rate : acc;
-      return accESLint;
-    }, 0) || 11500;
+    const avgNightlyRate = Math.max(...Object.values(data[1])) || 11500;
     this.props.updateDBData(data, avgNightlyRate);
   }
   render() {
@@ -180,7 +177,10 @@ App.propTypes = {
   avgNightlyRate: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
   totalRatings: PropTypes.number.isRequired,
-  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  availNights: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
   maxGuests: PropTypes.number.isRequired,
   minNightStay: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,

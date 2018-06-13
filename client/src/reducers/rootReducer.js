@@ -9,7 +9,7 @@ const initialState = {
   avgNightlyRate: 0,
   stars: 0,
   totalRatings: 0,
-  availNights: [],
+  availNights: {},
   maxGuests: 0,
   minNightStay: 0,
   cleaningFee: 0,

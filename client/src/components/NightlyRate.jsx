@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 const NightlyRate = ({ avgNightlyRate }) => (
   <div>
-    <DivInnerContainer avgNightlyRate={avgNightlyRate}>
-      <RateSpan>${Math.floor(avgNightlyRate / 100)}</RateSpan>
-      <PerNightSpan>per night</PerNightSpan>
+    <DivInnerContainer>
+      <RateSpan>{avgNightlyRate !== 0 ? `$${Math.floor(avgNightlyRate / 100)}` : '...'}</RateSpan>
+      <PerNightSpan>{avgNightlyRate !== 0 ? 'per night' : ''}</PerNightSpan>
     </DivInnerContainer>
   </div>
 );

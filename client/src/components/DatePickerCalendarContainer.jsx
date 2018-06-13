@@ -6,7 +6,7 @@ import DatePickerCalendarBackForwardButton from './DatePickerCalendarBackForward
 import DatePickerCalendarBody from './DatePickerCalendarBody';
 
 const DatePickerCalendarContainer = ({
-  availNights, handleChangePrevMonth, handleChangeNextMonth, handleDateClick, threeMonths,
+  handleChangePrevMonth, handleChangeNextMonth, handleDateClick, threeMonths,
 }) => (
   <DivOuterContainer>
     <DivInnerContainerHeader>
@@ -30,7 +30,6 @@ const DatePickerCalendarContainer = ({
       </DivButtonsContainer>
       <DivCalendarBodyContainer>
         <DatePickerCalendarBody
-          availNights={availNights}
           threeMonths={threeMonths}
           handleDateClick={handleDateClick}
         />
@@ -40,7 +39,6 @@ const DatePickerCalendarContainer = ({
 );
 
 DatePickerCalendarContainer.propTypes = {
-  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleChangePrevMonth: PropTypes.func.isRequired,
   handleChangeNextMonth: PropTypes.func.isRequired,
   handleDateClick: PropTypes.func.isRequired,

@@ -62,7 +62,10 @@ Reservations.propTypes = {
   avgNightlyRate: PropTypes.number.isRequired,
   stars: PropTypes.number.isRequired,
   totRatings: PropTypes.number.isRequired,
-  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  availNights: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
   maxGuests: PropTypes.number.isRequired,
   minNightStay: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,

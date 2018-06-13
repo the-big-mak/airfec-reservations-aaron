@@ -15,7 +15,7 @@ const Stars = ({ stars, totRatings }) => {
             {halfStar}
           </span>
           <SpanNumberOfRatings>
-            {totRatings}
+            {totRatings !== 0 ? totRatings : '...'}
           </SpanNumberOfRatings>
         </span>
       </Button>
