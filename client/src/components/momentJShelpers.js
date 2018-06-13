@@ -52,24 +52,24 @@ module.exports = {
     const momentDate = moment(dateArr.join(' '), 'MMMM D YYYY');
     return momentDate;
   },
-  isAllDatesInBetweenAvail(momentCheckIn, momentCheckOut, availNightsArr) {
+  isAllDatesInBetweenAvail(momentCheckIn, momentCheckOut, availNightsObj) {
     let bool = true;
     const now = momentCheckIn.clone();
     while (now.isSameOrBefore(momentCheckOut)) {
       // Expensive time complexity.
-      if (!availNightsArr.some(availDay => moment(availDay.avail_date).isSame(now))) {
+      if (!availNightsObj[moment(now).format('YYYY-MM-DD')]) {
         bool = false;
       }
       now.add(1, 'days');
     }
     return bool;
   },
-  isDayActive: (dateContext, day, availNightsArr) => {
+  isDayActive: (dateContext, day, availNightsObj) => {
     const d = dateContext;
     let isActive = false;
     d.date(day);
     // Expensive time complexity.
-    if (availNightsArr.some(availDay => moment(availDay.avail_date).isSame(d, 'day'))) {
+    if (availNightsObj[(moment(d).format('YYYY-MM-DD'))]) {
       isActive = true;
     }
     return isActive;

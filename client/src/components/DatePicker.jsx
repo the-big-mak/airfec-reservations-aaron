@@ -90,7 +90,7 @@ export default class DatePicker extends Component {
   }
   render() {
     const {
-      availNights, dateDropDownActive, handleDateDropDown, minNightStay, checkIn, checkOut,
+      dateDropDownActive, handleDateDropDown, minNightStay, checkIn, checkOut,
     } = this.props;
     return (
       <DivContainer>
@@ -130,7 +130,6 @@ export default class DatePicker extends Component {
           </DivPickerInnerContainer>
           {(dateDropDownActive.checkIn || dateDropDownActive.checkOut) &&
             <DatePickerDropDown
-              availNights={availNights}
               minNightStay={minNightStay}
               handleChangePrevMonth={this.handleChangePrevMonth}
               handleChangeNextMonth={this.handleChangeNextMonth}
@@ -145,7 +144,10 @@ export default class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
-  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  availNights: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
   dateDropDownActive: PropTypes.shape({
     checkIn: PropTypes.bool,
     checkOut: PropTypes.bool,

@@ -50,7 +50,10 @@ const BookItForm = ({
 );
 
 BookItForm.propTypes = {
-  availNights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  availNights: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
   dateDropDownActive: PropTypes.shape({
     checkIn: PropTypes.bool,
     checkOut: PropTypes.bool,
