@@ -30,7 +30,7 @@ After cloning this repo and adding an upstream remote, follow these steps:
 
 2. From within the repo's root directory, to initialize the database in your MySQL, run:
 ```
-shell> mysql db_name < text_file
+shell> mysql < database/schema.sql
 ```
 
 3. Then, to seed the fake data, run:
