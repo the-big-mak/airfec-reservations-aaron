@@ -17,7 +17,34 @@
 
 ## Usage
 
-> Some usage instructions
+> Installation
+
+After cloning this repo and adding an upstream remote, follow these steps:
+
+1. Create a config.js file inside /database/config/ that for proper MySQL configuration includes:
+```
+  user: [your username],
+  password: [your password],
+  database: airFeCReservations
+``
+
+2. From within the repo's root directory, to initialize the database in your MySQL, run
+```sh
+shell> mysql db_name < text_file
+```
+
+3. Then, to seed the fake data, run 
+
+```sh
+source > fakdata.sql
+```
+
+4. To start the server on port 3004, run 
+```sh
+npm start
+```
+
+> CSS
 
 This module is self-composed. At a certain scroll position, the module's position becomes fixed and a component appears showing the number of views. If you would like to set the default scrollY coordinates to something other than between forty and fifty, change these coordinates in the handleScroll method in App.jsx.
 
