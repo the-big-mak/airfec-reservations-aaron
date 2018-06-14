@@ -17,7 +17,29 @@
 
 ## Usage
 
-> Installation
+> CSS
+
+This module is self-composed. At a certain scroll position, the module's position becomes fixed and a component appears showing the number of views. If you would like to set the default scrollY coordinates to something other than between forty and fifty, change these coordinates in the handleScroll method in App.jsx.
+
+## Requirements
+
+An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+
+- Node 6.13.0
+- etc
+
+## Development
+
+### Installing Dependencies
+
+From within the root directory:
+
+```sh
+npm install -g webpack
+npm install
+```
+
+### Initializing Data
 
 After cloning this repo and adding an upstream remote, follow these steps:
 
@@ -39,29 +61,9 @@ mysql < database/schema.sql
 mysql < database/fakedata.sql
 ```
 
-4. To start the server with your previously-installed nodemon on port 3004, run: 
+### Running the server
+
+To start the server with your previously-installed nodemon on port 3004, run: 
 ```
 npm run start
-```
-
-> CSS
-
-This module is self-composed. At a certain scroll position, the module's position becomes fixed and a component appears showing the number of views. If you would like to set the default scrollY coordinates to something other than between forty and fifty, change these coordinates in the handleScroll method in App.jsx.
-
-## Requirements
-
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
-- Node 6.13.0
-- etc
-
-## Development
-
-### Installing Dependencies
-
-From within the root directory:
-
-```sh
-npm install -g webpack
-npm install
 ```
