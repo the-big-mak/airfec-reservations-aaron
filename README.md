@@ -22,7 +22,7 @@
 After cloning this repo and adding an upstream remote, follow these steps:
 
 1. Create a config.js file inside `/database/config/` for proper MySQL configuration that includes:
-```sh
+```
   user: [your username],
   password: [your password],
   database: airFeCReservations
@@ -30,17 +30,17 @@ After cloning this repo and adding an upstream remote, follow these steps:
 
 2. From within the repo's root directory, to initialize the database in your MySQL, run:
 ```
-shell> mysql < database/schema.sql
+mysql < database/schema.sql
 ```
 
 3. Then, to seed the fake data, run:
 
-```sh
-source > fakedata.sql
+```
+mysql < database/fakedata.sql
 ```
 
 4. To start the server on port 3004, run 
-```sh
+```
 npm start
 ```
 
