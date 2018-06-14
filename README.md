@@ -39,9 +39,9 @@ mysql < database/schema.sql
 mysql < database/fakedata.sql
 ```
 
-4. To start the server on port 3004, run 
+4. To start the server with your previously-installed nodemon on port 3004, run 
 ```
-npm start
+npm run start
 ```
 
 > CSS
