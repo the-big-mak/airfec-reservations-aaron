@@ -75,9 +75,9 @@ class App extends Component {
     this.props.handleOutsideDropDownClick(dateDropDownActive);
   }
   handleScroll() {
-    if (window.scrollY > 340 && window.scrollY < 360) {
+    if (window.scrollY > 830 && window.scrollY < 850) {
       this.props.setIsBookItFixed(true);
-    } else if (window.scrollY < 340) {
+    } else if (window.scrollY < 830) {
       if (this.props.isBookItFixed) {
         this.props.setIsBookItFixed(false);
       }
