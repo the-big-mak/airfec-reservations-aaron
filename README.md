@@ -63,7 +63,7 @@ mysql < database/fakedata.sql
 
 ### Running the server
 
-To start the server with your previously-installed nodemon on port 3004, run: 
+To start the server on port 3004 with your previously-installed nodemon, run: 
 ```
 npm run start
 ```
