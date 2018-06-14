@@ -32,11 +32,11 @@ const getAvailNights = (roomId) => {
 };
 
 const updateAvailNights = (roomId, bookingId) => {
-  const queryStr = `UPDATE nights n 
+  const queryStr = `UPDATE nights n
                     JOIN bookings b ON n.room_id = ? AND
                     n.room_id = b.room_id AND
                     b.id = ?
-                    n.avail_date >= b.check_in AND 
+                    n.avail_date >= b.check_in AND
                     n.avail_date < b.check_out
                     SET n.is_avail = 0`;
   const params = [roomId, bookingId];
