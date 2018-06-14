@@ -33,6 +33,7 @@ class App extends Component {
     this.props.changeMonth(dc, typeOperator);
   }
   fetchDetailsAndAvailNights() {
+
     axios.get(`/reservations/${this.props.roomId}`)
       .then(db => this.updateState(db.data))
       .catch(err => err);
