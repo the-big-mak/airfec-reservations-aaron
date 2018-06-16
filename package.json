@@ -17,6 +17,7 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
+    "react-prod": "webpack -p --watch",
     "start": "nodemon server/server.js",
     "test": "jest",
     "test-watch": "jest --watch",
