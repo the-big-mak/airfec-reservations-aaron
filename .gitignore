@@ -1,4 +1,3 @@
 node_modules
 database/config
-public/bundleReservations.js
-public/bundle.js
+my-ec2-key-pair-fec2.pem
