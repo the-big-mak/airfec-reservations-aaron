@@ -1,13 +1,13 @@
-FROM node:carbon
+FROM node:boron
 
-WORKDIR /usr/src/app
+WORKDIR /src/app
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN npm install
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3004
 
 CMD [ "npm", "start" ]
