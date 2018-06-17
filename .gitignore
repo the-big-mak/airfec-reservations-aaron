@@ -1,3 +1,4 @@
 node_modules
 database/config
 my-ec2-key-pair-fec2.pem
+.DS_Store
