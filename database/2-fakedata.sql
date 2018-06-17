@@ -1,6 +1,6 @@
 -- RUN schema.sql to create database before running this file.
 
--- Dummy Data: 🏘️ Rooms 1-100
+-- Dummy Data: Rooms 1-100
 INSERT INTO rooms (id, avg_rating, total_ratings, max_guests, min_night_stay, cleaning_fee, addtl_guest_fee) 
 VALUES (1, 4.6, 299, 4, 2, 1092, 14566),
 (2, 3.6, 792, 4, 2, 4544, 9866),
@@ -103,7 +103,7 @@ VALUES (1, 4.6, 299, 4, 2, 1092, 14566),
 (99, 4.6, 344, 3, 2, 2789, 3728),
 (100, 3.7, 791, 5, 2, 2948, 15663);
 
--- Dummy Data: 🛌🏼 Nights - 50 available nights per room
+-- Dummy Data: Nights - 50 available nights per room
 INSERT IGNORE INTO nights (id, room_id, avail_date, rate) 
 VALUES (1, 1, '2018-08-01', 21479),
 (2, 1, '2018-05-12', 23321),
@@ -5106,7 +5106,7 @@ VALUES (1, 1, '2018-08-01', 21479),
 (4999, 100, '2018-08-25', 30157),
 (5000, 100, '2018-06-18', 30813);
 
--- Dummy Data: 👩🏼‍💼👱🏼‍ Guests 1 - 10
+-- Dummy Data: Guests 1 - 10
 INSERT IGNORE INTO guests (id, first_name, last_name, email) 
 VALUES (1, 'Mallory', 'Ulyet', 'mulyet0@google.com.hk'),
 (2, 'Johnath', 'Attkins', 'jattkins1@answers.com'),
@@ -5119,7 +5119,7 @@ VALUES (1, 'Mallory', 'Ulyet', 'mulyet0@google.com.hk'),
 (9, 'Georgeta', 'Gear', 'ggear8@google.nl'),
 (10, 'Jack', 'Rosson', 'jrosson9@rakuten.co.jp');
 
--- Dummy Data: ☑️ Bookings - 10 per room
+-- Dummy Data: Bookings - 10 per room
 INSERT IGNORE INTO bookings (id, room_id, guest_id, check_in, check_out) 
 VALUES (1, 1, 1, '2018-08-29', '2018-07-10'),
 (2, 1, 2, '2018-08-21', '2018-07-07'),

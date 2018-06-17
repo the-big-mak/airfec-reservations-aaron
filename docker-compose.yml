@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  reservations:
+    build: .
+    depends_on:
+      - database
+    ports: 
+      - '3004:3004'
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: italy
+      MYSQL_DATABASE: airFeCReservations
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d

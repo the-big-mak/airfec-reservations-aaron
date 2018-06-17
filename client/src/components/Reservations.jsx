@@ -119,8 +119,8 @@ const DivOuterContainer = styled.div`
   margin-left: 45px;
   width: 376px;
   -webkit-font-smoothing: antialiased;
-  ${props => (props.isBookItFixed ? 'position: fixed; top: 75px;' : 'position: absolute; top: 830px;')}
-  right: 140px;
+  ${props => (props.isBookItFixed ? 'position: fixed; top: 75px;' : 'position: absolute; top: 730px;')}
+  right: 210px;
 `;
 const DivInnerContainer = styled.div`
   border: 1px solid #e4e4e4;

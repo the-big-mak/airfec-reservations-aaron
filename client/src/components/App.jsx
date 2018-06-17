@@ -33,7 +33,6 @@ class App extends Component {
     this.props.changeMonth(dc, typeOperator);
   }
   fetchDetailsAndAvailNights() {
-
     axios.get(`/reservations/${this.props.roomId}`)
       .then(db => this.updateState(db.data))
       .catch(err => err);
@@ -75,9 +74,12 @@ class App extends Component {
     this.props.handleOutsideDropDownClick(dateDropDownActive);
   }
   handleScroll() {
-    if (window.scrollY > 830 && window.scrollY < 850) {
+    if (window.scrollY > 800) {
+      if (!this.props.isBookItFixed) {
+        this.props.setIsBookItFixed(true);
+      }
       this.props.setIsBookItFixed(true);
-    } else if (window.scrollY < 830) {
+    } else if (window.scrollY < 800) {
       if (this.props.isBookItFixed) {
         this.props.setIsBookItFixed(false);
       }

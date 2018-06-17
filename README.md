@@ -19,7 +19,11 @@
 
 > CSS
 
-This module is self-composed. At a certain scroll position, the module's position becomes fixed and a component appears showing the number of views. If you would like to set the default scrollY coordinates to something other than between forty and fifty, change these coordinates in the handleScroll method in App.jsx.
+This module utilizes styled components.
+
+At a certain scroll position, the module's position becomes fixed and a component appears showing the number of views. If you would like to customize the scrollY coordinates at which the position changes, see line 76 of the handleScroll method in App.jsx.
+
+If you would like to customize the module's position from the top of the window screen, set the top position on line 122 of DivOuterContainer in Reservations.jsx when the component is positioned absolute.
 
 ## Requirements
 
@@ -45,25 +49,25 @@ After cloning this repo and adding an upstream remote, follow these steps:
 
 1. Create a config.js file inside `/database/config/` for proper MySQL configuration that includes:
 ```
-  user: [your username],
-  password: [your password],
+  user: [your username or root],
+  password: [your password, or delete this line if using root with no password],
   database: airFeCReservations
 ```
 
 2. From within the repo's root directory, to initialize the database in your MySQL, run:
 ```
-mysql < database/schema.sql
+mysql -u [your username] -p < database/1-schema.sql
 ```
 
 3. Then, to seed the fake data, run:
 
 ```
-mysql < database/fakedata.sql
+mysql -u [username] -p < database/2-fakedata.sql
 ```
 
 ### Running the server
 
-To start the server on port 3004 with your previously-installed nodemon, run: 
+To start the server on port 3004, run: 
 ```
 npm run start
 ```

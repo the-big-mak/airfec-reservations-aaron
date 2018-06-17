@@ -17,10 +17,8 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "start": "nodemon server/server.js",
-    "test": "jest",
-    "test-watch": "jest --watch",
-    "test-coverage": "jest --coverage"
+    "react-prod": "webpack -p --watch",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
