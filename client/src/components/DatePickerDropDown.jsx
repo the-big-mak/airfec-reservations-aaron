@@ -5,8 +5,7 @@ import DatePickerCalendarContainer from './DatePickerCalendarContainer';
 import DatePickerMinStayDetails from './DatePickerMinStayDetails';
 
 const DatePickerDropDown = ({
-  minNightStay, handleChangePrevMonth,
-  handleChangeNextMonth, handleDateClick, threeMonths,
+  handleChangeNextMonth, handleChangePrevMonth, handleDateClick, threeMonths,
 }) => (
   <DivOuterContainer>
     <DivInnerContainer>
@@ -16,13 +15,12 @@ const DatePickerDropDown = ({
         handleDateClick={handleDateClick}
         threeMonths={threeMonths}
       />
-      <DatePickerMinStayDetails minNightStay={minNightStay} />
+      <DatePickerMinStayDetails />
     </DivInnerContainer>
   </DivOuterContainer>
 );
 
 DatePickerDropDown.propTypes = {
-  minNightStay: PropTypes.number.isRequired,
   handleChangePrevMonth: PropTypes.func.isRequired,
   handleChangeNextMonth: PropTypes.func.isRequired,
   handleDateClick: PropTypes.func.isRequired,

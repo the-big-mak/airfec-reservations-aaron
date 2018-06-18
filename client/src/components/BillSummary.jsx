@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import BillSummaryItem from './BillSummaryItem';
 
 const BillSummary = ({
-  nights, billPricePerNight, serviceFee, cleaningFee,
+  billPricePerNight, cleaningFee, nights, serviceFee,
 }) => {
   const totalPrice = ((billPricePerNight / 100) * nights) + (cleaningFee / 100)
     + (serviceFee / 100);
@@ -19,15 +20,24 @@ const BillSummary = ({
   );
 };
 
+function mapStateToProps(reduxState) {
+  return {
+    billPricePerNight: reduxState.billPricePerNight,
+    cleaningFee: reduxState.cleaningFee,
+    nights: reduxState.nights,
+    serviceFee: reduxState.serviceFee,
+  };
+}
+
 BillSummary.propTypes = {
-  nights: PropTypes.number.isRequired,
   billPricePerNight: PropTypes.number.isRequired,
-  serviceFee: PropTypes.number.isRequired,
   cleaningFee: PropTypes.number.isRequired,
+  nights: PropTypes.number.isRequired,
+  serviceFee: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
   margin-bottom: 8px;
 `;
 
-export default BillSummary;
+export default connect(mapStateToProps)(BillSummary);

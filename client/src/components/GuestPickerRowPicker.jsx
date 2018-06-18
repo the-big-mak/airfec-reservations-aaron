@@ -6,8 +6,7 @@ import GuestPickerRowPickerNumber from './GuestPickerRowPickerNumber';
 import GuestPickerRowPickerPlus from './GuestPickerRowPickerPlus';
 
 const GuestPickerRowPicker = ({
-  value, handleAddGuests, handleMinusGuests,
-  label, totalGuests, maxGuests,
+  handleAddGuests, handleMinusGuests, label, totalGuests, value,
 }) => (
   <DivOuterContainer>
     <DivInnerContainer>
@@ -20,21 +19,19 @@ const GuestPickerRowPicker = ({
       <GuestPickerRowPickerPlus
         handleChangeGuests={handleAddGuests}
         label={label}
-        value={value}
         totalGuests={totalGuests}
-        maxGuests={maxGuests}
+        value={value}
       />
     </DivInnerContainer>
   </DivOuterContainer>
 );
 
 GuestPickerRowPicker.propTypes = {
-  value: PropTypes.number.isRequired,
   handleAddGuests: PropTypes.func.isRequired,
   handleMinusGuests: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   totalGuests: PropTypes.number.isRequired,
-  maxGuests: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`

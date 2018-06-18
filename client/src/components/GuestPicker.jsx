@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GuestLabel from './GuestLabel';
 import GuestArrowDropDownAndUp from './GuestArrowDropDownAndUp';
 import GuestPickerDropDown from './GuestPickerDropDown';
 
-export default class GuestPicker extends Component {
+class GuestPicker extends Component {
   constructor(props) {
     super(props);
     this.dropDownRef = React.createRef();
@@ -68,9 +69,7 @@ export default class GuestPicker extends Component {
     }
   }
   render() {
-    const {
-      guestDropDownActive, handleGuestDropDown, maxGuests,
-    } = this.props;
+    const { guestDropDownActive, handleGuestDropDown } = this.props;
     return (
       <DivOuterContainer>
         <LabelOuterContainer>
@@ -79,32 +78,28 @@ export default class GuestPicker extends Component {
         <DivPickerOuterContainer innerRef={this.dropDownRef}>
           <ButtonPicker
             onClick={handleGuestDropDown}
-            guestDropDownActive={guestDropDownActive}
           >
             <DivCellOuterContainer>
               <DivCellInnerContainer>
                 <DivTableContainer>
                   <GuestLabel
-                    guestDropDownActive={guestDropDownActive}
                     guestValue={this.state.guests}
                     infantsValue={this.state.infantsNum}
                   />
-                  <GuestArrowDropDownAndUp guestDropDownActive={guestDropDownActive} />
+                  <GuestArrowDropDownAndUp />
                 </DivTableContainer>
               </DivCellInnerContainer>
             </DivCellOuterContainer>
           </ButtonPicker>
-          {guestDropDownActive &&
-            <GuestPickerDropDown
-              maxGuests={maxGuests}
-              adultsNum={this.state.adultsNum}
-              childrenNum={this.state.childrenNum}
-              infantsNum={this.state.infantsNum}
-              totalGuests={this.state.guests}
-              handleAddGuests={this.handleAddGuests}
-              handleMinusGuests={this.handleMinusGuests}
-            />
-          }
+          { guestDropDownActive &&
+          <GuestPickerDropDown
+            adultsNum={this.state.adultsNum}
+            childrenNum={this.state.childrenNum}
+            infantsNum={this.state.infantsNum}
+            totalGuests={this.state.guests}
+            handleAddGuests={this.handleAddGuests}
+            handleMinusGuests={this.handleMinusGuests}
+          /> }
         </DivPickerOuterContainer>
         <input type="hidden" name="number_of_guests" value={this.state.guests} />
         <input type="hidden" name="number_of_adults" value={this.state.adultsNum} />
@@ -114,6 +109,14 @@ export default class GuestPicker extends Component {
     );
   }
 }
+
+function mapStateToProps(reduxState) {
+  return {
+    guestDropDownActive: reduxState.guestDropDownActive,
+    maxGuests: reduxState.maxGuests,
+  };
+}
+
 GuestPicker.propTypes = {
   guestDropDownActive: PropTypes.bool.isRequired,
   handleGuestDropDown: PropTypes.func.isRequired,
@@ -136,9 +139,7 @@ const LabelOuterContainer = styled.label`
 
 const SmallLabelInnerContainer = styled.small`
   color: #484848;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
+  font: 600 12px Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   letter-spacing: normal;
   line-height: 16px;
   margin: 0px;
@@ -179,9 +180,7 @@ const DivCellOuterContainer = styled.div`
 
 const DivCellInnerContainer = styled.div`
   color: #484848;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  font-size: 16px;
-  font-weight: normal;
+  font: normal 16px Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   letter-spacing: undefined;
   line-height: 22px;
   padding-bottom: 0px;
@@ -193,3 +192,5 @@ const DivTableContainer = styled.div`
   display: table;
   width: 100%;
 `;
+
+export default connect(mapStateToProps)(GuestPicker);

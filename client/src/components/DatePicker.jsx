@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
@@ -7,7 +8,7 @@ import DatePickerInputBottomCarot from './DatePickerInputBottomCarot';
 import DatePickerInputArrowRight from './DatePickerInputArrowRight';
 import DatePickerDropDown from './DatePickerDropDown';
 
-export default class DatePicker extends Component {
+class DatePicker extends Component {
   constructor(props) {
     super(props);
     this.dropDownRef = React.createRef();
@@ -90,7 +91,7 @@ export default class DatePicker extends Component {
   }
   render() {
     const {
-      dateDropDownActive, handleDateDropDown, minNightStay, checkIn, checkOut,
+      checkIn, checkOut, dateDropDownActive, handleDateDropDown,
     } = this.props;
     return (
       <DivContainer>
@@ -102,8 +103,8 @@ export default class DatePicker extends Component {
             <DivCheckInOutContainer onClick={e => handleDateDropDown(e, 'checkIn')}>
               <InputCheckInOut
                 name="checkIn"
-                type="text"
                 placeholder="Check In"
+                type="text"
               />
               {dateDropDownActive.checkIn && <DatePickerInputBottomCarot />}
               <DivCheckInText
@@ -116,10 +117,11 @@ export default class DatePicker extends Component {
             <DivCheckInOutContainer onClick={e => handleDateDropDown(e, 'checkOut')} >
               <InputCheckInOut
                 name="checkOut"
-                type="text"
                 placeholder="Check Out"
+                type="text"
               />
-              {dateDropDownActive.checkOut && <DatePickerInputBottomCarot />}
+              { dateDropDownActive.checkOut &&
+              <DatePickerInputBottomCarot /> }
               <DivCheckOutText
                 dateDropDownActive={dateDropDownActive.checkOut}
                 value={checkOut}
@@ -130,7 +132,6 @@ export default class DatePicker extends Component {
           </DivPickerInnerContainer>
           {(dateDropDownActive.checkIn || dateDropDownActive.checkOut) &&
             <DatePickerDropDown
-              minNightStay={minNightStay}
               handleChangePrevMonth={this.handleChangePrevMonth}
               handleChangeNextMonth={this.handleChangeNextMonth}
               threeMonths={this.state.threeMonths}
@@ -143,18 +144,27 @@ export default class DatePicker extends Component {
   }
 }
 
+function mapStateToProps(reduxState) {
+  return {
+    availNights: reduxState.availNights,
+    checkIn: reduxState.checkIn,
+    checkOut: reduxState.checkOut,
+    curDateContext: reduxState.curDateContext,
+    dateDropDownActive: reduxState.dateDropDownActive,
+    futureDateContext: reduxState.futureDateContext,
+    minNightStay: reduxState.minNightStay,
+    nextDateContext: reduxState.nextDateContext,
+    nights: reduxState.nights,
+    prevDateContext: reduxState.prevDateContext,
+  };
+}
+
 DatePicker.propTypes = {
   availNights: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
-  dateDropDownActive: PropTypes.shape({
-    checkIn: PropTypes.bool,
-    checkOut: PropTypes.bool,
-  }).isRequired,
-  handleDateDropDown: PropTypes.func.isRequired,
-  minNightStay: PropTypes.number.isRequired,
-  handleOutsideDropDownClick: PropTypes.func.isRequired,
+  changeMonth: PropTypes.func.isRequired,
   checkIn: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
@@ -163,20 +173,26 @@ DatePicker.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
-  handleChangeCheckInOut: PropTypes.func.isRequired,
-  prevDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
   curDateContext: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
+  dateDropDownActive: PropTypes.shape({
+    checkIn: PropTypes.bool,
+    checkOut: PropTypes.bool,
+  }).isRequired,
+  handleChangeCheckInOut: PropTypes.func.isRequired,
+  handleDateDropDown: PropTypes.func.isRequired,
+  handleOutsideDropDownClick: PropTypes.func.isRequired,
+  minNightStay: PropTypes.number.isRequired,
   nextDateContext: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
-  changeMonth: PropTypes.func.isRequired,
+  prevDateContext: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
 };
 
 const DivContainer = styled.div`
@@ -263,3 +279,5 @@ const DivCheckOutText = DivCheckInText.extend`
     return props.value ? 'rgb(72, 72, 72);' : '#757575;';
   }}
 `;
+
+export default connect(mapStateToProps)(DatePicker);

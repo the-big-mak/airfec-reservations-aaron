@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const BookingButton = ({ isBillVisible }) => (
@@ -9,6 +10,12 @@ const BookingButton = ({ isBillVisible }) => (
     </SpanButtonText>
   </Button>
 );
+
+function mapStateToProps(reduxState) {
+  return {
+    isBillVisible: reduxState.isBillVisible,
+  };
+}
 
 BookingButton.propTypes = {
   isBillVisible: PropTypes.bool.isRequired,
@@ -47,4 +54,4 @@ const DivButtonText = styled.div`
   word-wrap: break-word;
 `;
 
-export default BookingButton;
+export default connect(mapStateToProps)(BookingButton);

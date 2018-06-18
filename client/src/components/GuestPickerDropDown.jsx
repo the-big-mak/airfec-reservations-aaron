@@ -5,7 +5,8 @@ import GuestPickerRow from './GuestPickerRow';
 import GuestPickerMaxDetails from './GuestPickerMaxDetails';
 
 const GuestPickerDropDown = ({
-  maxGuests, adultsNum, childrenNum, infantsNum, handleAddGuests, handleMinusGuests, totalGuests,
+  adultsNum, childrenNum, infantsNum,
+  handleAddGuests, handleMinusGuests, totalGuests,
 }) => (
   <DivOuterContainer>
     <DivInnerContainer>
@@ -14,29 +15,27 @@ const GuestPickerDropDown = ({
         ['Infants', 'Under 2', infantsNum]]
         .map(row => (
           <GuestPickerRow
-            label={row[0]}
-            secondaryLabel={row[1]}
-            value={row[2]}
             handleAddGuests={handleAddGuests}
             handleMinusGuests={handleMinusGuests}
-            totalGuests={totalGuests}
-            maxGuests={maxGuests}
             key={`${row[0]} row key`}
+            label={row[0]}
+            secondaryLabel={row[1]}
+            totalGuests={totalGuests}
+            value={row[2]}
           />))
       }
-      <GuestPickerMaxDetails maxGuests={maxGuests} />
+      <GuestPickerMaxDetails />
     </DivInnerContainer>
   </DivOuterContainer>
 );
 
 GuestPickerDropDown.propTypes = {
-  maxGuests: PropTypes.number.isRequired,
   adultsNum: PropTypes.number.isRequired,
   childrenNum: PropTypes.number.isRequired,
-  infantsNum: PropTypes.number.isRequired,
-  totalGuests: PropTypes.number.isRequired,
   handleAddGuests: PropTypes.func.isRequired,
   handleMinusGuests: PropTypes.func.isRequired,
+  infantsNum: PropTypes.number.isRequired,
+  totalGuests: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`

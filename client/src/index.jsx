@@ -1,9 +1,9 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { render } from 'react-dom';
-import App from './components/App';
-import rootReducer from './reducers/rootReducer';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import rootReducer from './reducers/rootReducer';
+import App from './components/App';
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(

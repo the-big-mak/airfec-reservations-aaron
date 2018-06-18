@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Star from './Star';
 
@@ -22,6 +23,13 @@ const Stars = ({ stars, totRatings }) => {
     </div>
   );
 };
+
+function mapStateToProps(reduxState) {
+  return {
+    stars: reduxState.stars,
+    totalRatings: reduxState.totalRatings,
+  };
+}
 
 Stars.propTypes = {
   stars: PropTypes.number.isRequired,
@@ -46,9 +54,7 @@ const Button = styled.button`
 const SpanNumberOfRatings = styled.span`
   color: #484848;
   display: inline;
-  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
-  font-size: 12px;
-  font-weight: 600;
+  font: 600 12px Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   letter-spacing: normal;
   line-height: 16px;
   margin: 0px;
@@ -56,4 +62,4 @@ const SpanNumberOfRatings = styled.span`
   word-wrap: break-word;
 `;
 
-export default Stars;
+export default connect(mapStateToProps)(Stars);

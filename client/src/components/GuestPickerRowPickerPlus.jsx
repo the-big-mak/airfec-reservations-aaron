@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const GuestPickerRowPickerPlus = ({
-  handleChangeGuests, label, totalGuests, maxGuests, value,
+  handleChangeGuests, label, maxGuests, totalGuests, value,
 }) => {
   const isDisabled = () => (label !== 'Infants' ? totalGuests >= maxGuests : value >= 5);
   return (
@@ -23,12 +24,18 @@ const GuestPickerRowPickerPlus = ({
   );
 };
 
+function mapStateToProps(reduxState) {
+  return {
+    maxGuests: reduxState.maxGuests,
+  };
+}
+
 GuestPickerRowPickerPlus.propTypes = {
   handleChangeGuests: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  totalGuests: PropTypes.number.isRequired,
   maxGuests: PropTypes.number.isRequired,
+  totalGuests: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
@@ -69,4 +76,4 @@ const SVGContainer = styled.svg`
   width: 1em;
 `;
 
-export default GuestPickerRowPickerPlus;
+export default connect(mapStateToProps)(GuestPickerRowPickerPlus);
