@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {
-  updateDBData, changeMonth, changeCheckInOut, changeGuests, updateDateDropDownActive,
-  toggleGuestDropDown, handleOutsideDropDownClick, setIsBookItFixed, handleShowBill,
+  changeCheckInOut, changeMonth, changeGuests, handleShowBill,
+  handleOutsideDropDownClick, setIsBookItFixed, toggleGuestDropDown,
+  updateDateDropDownActive, updateDBData,
 } from '../actions/actions';
 import Reservations from './Reservations';
 
@@ -106,43 +107,20 @@ class App extends Component {
     return (
       <div ref={this.bookItRef}>
         <Reservations
-          avgNightlyRate={this.props.avgNightlyRate}
-          stars={this.props.stars}
-          totRatings={this.props.totalRatings}
-          availNights={this.props.availNights}
-          maxGuests={this.props.maxGuests}
-          minNightStay={this.props.minNightStay}
-          cleaningFee={this.props.cleaningFee}
-          serviceFee={this.props.serviceFee}
-          addtlGuestFee={this.props.addtlGuestFee}
-          dateDropDownActive={this.props.dateDropDownActive}
+          changeMonth={this.changeMonth}
+          handleChangeCheckInOut={this.handleChangeCheckInOut}
+          handleChangeGuests={this.handleChangeGuests}
           handleDateDropDown={this.handleDateDropDown}
-          guestDropDownActive={this.props.guestDropDownActive}
           handleGuestDropDown={this.handleGuestDropDown}
           handleOutsideDropDownClick={this.handleOutsideDropDownClickApp}
-          postBooking={this.postBooking}
-          isBookItFixed={this.props.isBookItFixed}
-          views={this.props.views}
-          checkIn={this.props.checkIn}
-          checkOut={this.props.checkOut}
-          guests={this.props.guests}
-          handleChangeGuests={this.handleChangeGuests}
-          handleChangeCheckInOut={this.handleChangeCheckInOut}
-          isBillVisible={this.props.isBillVisible}
-          billPricePerNight={this.props.billPricePerNight}
-          nights={this.props.nights}
-          prevDateContext={this.props.prevDateContext}
-          curDateContext={this.props.curDateContext}
-          nextDateContext={this.props.nextDateContext}
-          changeMonth={this.changeMonth}
         />
         {/* <DateTwoMonths
           availNights={this.state.availNights}
-          prevDateContext={this.state.prevDateContext}
-          curDateContext={this.state.curDateContext}
-          nextDateContext={this.state.nextDateContext}
-          futureDateContext={this.state.futureDateContext}
           changeMonth={this.changeMonth}
+          curDateContext={this.state.curDateContext}
+          futureDateContext={this.state.futureDateContext}
+          nextDateContext={this.state.nextDateContext}
+          prevDateContext={this.state.prevDateContext}
         /> */}
       </div>
     );
@@ -151,53 +129,37 @@ class App extends Component {
 
 function mapStateToProps(reduxState) {
   return {
-    avgNightlyRate: reduxState.avgNightlyRate,
-    stars: reduxState.stars,
-    totalRatings: reduxState.totalRatings,
-    availNights: reduxState.availNights,
-    maxGuests: reduxState.maxGuests,
-    minNightStay: reduxState.minNightStay,
-    cleaningFee: reduxState.cleaningFee,
-    serviceFee: reduxState.serviceFee,
     addtlGuestFee: reduxState.addtlGuestFee,
-    guestDropDownActive: reduxState.guestDropDownActive,
-    dateDropDownActive: reduxState.dateDropDownActive,
-    roomId: reduxState.roomId,
-    isBookItFixed: reduxState.isBookItFixed,
-    views: reduxState.views,
+    avgNightlyRate: reduxState.avgNightlyRate,
+    availNights: reduxState.availNights,
+    billPricePerNight: reduxState.billPricePerNight,
     checkIn: reduxState.checkIn,
     checkOut: reduxState.checkOut,
+    cleaningFee: reduxState.cleaningFee,
+    curDateContext: reduxState.curDateContext,
+    dateDropDownActive: reduxState.dateDropDownActive,
+    futureDateContext: reduxState.futureDateContext,
+    guestDropDownActive: reduxState.guestDropDownActive,
     guests: reduxState.guests,
     isBillVisible: reduxState.isBillVisible,
-    billPricePerNight: reduxState.billPricePerNight,
+    isBookItFixed: reduxState.isBookItFixed,
+    maxGuests: reduxState.maxGuests,
+    minNightStay: reduxState.minNightStay,
+    nextDateContext: reduxState.nextDateContext,
     nights: reduxState.nights,
     prevDateContext: reduxState.prevDateContext,
-    curDateContext: reduxState.curDateContext,
-    nextDateContext: reduxState.nextDateContext,
-    futureDateContext: reduxState.futureDateContext,
+    roomId: reduxState.roomId,
+    serviceFee: reduxState.serviceFee,
+    stars: reduxState.stars,
+    totalRatings: reduxState.totalRatings,
+    views: reduxState.views,
   };
 }
 
 App.propTypes = {
-  avgNightlyRate: PropTypes.number.isRequired,
-  stars: PropTypes.number.isRequired,
-  totalRatings: PropTypes.number.isRequired,
-  availNights: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  maxGuests: PropTypes.number.isRequired,
-  minNightStay: PropTypes.number.isRequired,
-  cleaningFee: PropTypes.number.isRequired,
-  serviceFee: PropTypes.number.isRequired,
-  addtlGuestFee: PropTypes.number.isRequired,
-  dateDropDownActive: PropTypes.shape({
-    checkIn: PropTypes.bool,
-    checkOut: PropTypes.bool,
-  }).isRequired,
-  guestDropDownActive: PropTypes.bool.isRequired,
-  isBookItFixed: PropTypes.bool.isRequired,
-  views: PropTypes.number.isRequired,
+  changeCheckInOut: PropTypes.func.isRequired,
+  changeGuests: PropTypes.func.isRequired,
+  changeMonth: PropTypes.func.isRequired,
   checkIn: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
@@ -206,42 +168,29 @@ App.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
+  dateDropDownActive: PropTypes.shape({
+    checkIn: PropTypes.bool,
+    checkOut: PropTypes.bool,
+  }).isRequired,
   guests: PropTypes.number.isRequired,
-  isBillVisible: PropTypes.bool.isRequired,
-  billPricePerNight: PropTypes.number.isRequired,
-  nights: PropTypes.number.isRequired,
-  prevDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  curDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  nextDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  roomId: PropTypes.string.isRequired,
-  updateDBData: PropTypes.func.isRequired,
-  changeMonth: PropTypes.func.isRequired,
-  changeCheckInOut: PropTypes.func.isRequired,
-  changeGuests: PropTypes.func.isRequired,
-  updateDateDropDownActive: PropTypes.func.isRequired,
-  toggleGuestDropDown: PropTypes.func.isRequired,
   handleOutsideDropDownClick: PropTypes.func.isRequired,
-  setIsBookItFixed: PropTypes.func.isRequired,
   handleShowBill: PropTypes.func.isRequired,
+  isBookItFixed: PropTypes.bool.isRequired,
+  roomId: PropTypes.string.isRequired,
+  setIsBookItFixed: PropTypes.func.isRequired,
+  toggleGuestDropDown: PropTypes.func.isRequired,
+  updateDateDropDownActive: PropTypes.func.isRequired,
+  updateDBData: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, {
-  updateDBData,
-  changeMonth,
   changeCheckInOut,
+  changeMonth,
   changeGuests,
-  updateDateDropDownActive,
-  toggleGuestDropDown,
   handleOutsideDropDownClick,
-  setIsBookItFixed,
   handleShowBill,
+  setIsBookItFixed,
+  toggleGuestDropDown,
+  updateDateDropDownActive,
+  updateDBData,
 })(App);

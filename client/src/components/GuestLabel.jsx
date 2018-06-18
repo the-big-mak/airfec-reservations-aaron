@@ -1,28 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const GuestLabel = ({ guestDropDownActive, guestValue, infantsValue }) => (
   <DivGuestLabelContainer>
     <DivGuestLabelInnerContainer>
-      <SpanGuestLabel
-        guestDropDownActive={guestDropDownActive}
-      >
+      <SpanGuestLabel guestDropDownActive={guestDropDownActive}>
         {guestValue} {guestValue === 1 ? 'guest' : 'guests'}
       </SpanGuestLabel>
-      {infantsValue > 0 &&
+      { infantsValue > 0 &&
       <span>
         <span>, </span>
-        <SpanGuestLabel
-          guestDropDownActive={false}
-        >
+        <SpanGuestLabel guestDropDownActive={false} >
           {infantsValue} {infantsValue === 1 ? 'infant' : 'infants'}
         </SpanGuestLabel>
-      </span>
-      }
+      </span> }
     </DivGuestLabelInnerContainer>
   </DivGuestLabelContainer>
 );
+
+function mapStateToProps(reduxState) {
+  return {
+    guestDropDownActive: reduxState.guestDropDownActive,
+  };
+}
 
 GuestLabel.propTypes = {
   guestDropDownActive: PropTypes.bool.isRequired,
@@ -58,4 +60,4 @@ const SpanGuestLabel = styled.span`
   `}
 `;
 
-export default GuestLabel;
+export default connect(mapStateToProps)(GuestLabel);

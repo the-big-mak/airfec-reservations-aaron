@@ -20,18 +20,18 @@ const DatePickerCalendarContainer = ({
     <DivInnerContainerBody>
       <DivButtonsContainer>
         <DatePickerCalendarBackForwardButton
-          position="left"
           handleChangeMonth={handleChangePrevMonth}
+          position="left"
         />
         <DatePickerCalendarBackForwardButton
-          position="right"
           handleChangeMonth={handleChangeNextMonth}
+          position="right"
         />
       </DivButtonsContainer>
       <DivCalendarBodyContainer>
         <DatePickerCalendarBody
-          threeMonths={threeMonths}
           handleDateClick={handleDateClick}
+          threeMonths={threeMonths}
         />
       </DivCalendarBodyContainer>
     </DivInnerContainerBody>

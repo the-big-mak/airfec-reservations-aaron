@@ -1,98 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import BookItFields from './BookItFields';
 import BillSummary from './BillSummary';
 import BookingButton from './BookingButton';
 
 const BookItForm = ({
-  availNights, dateDropDownActive, handleDateDropDown,
-  guestDropDownActive, handleGuestDropDown, maxGuests,
-  minNightStay, handleOutsideDropDownClick, checkIn, checkOut,
-  guests, handleChangeGuests, handleChangeCheckInOut, isBillVisible,
-  billPricePerNight, serviceFee, nights, cleaningFee,
-  prevDateContext, curDateContext, nextDateContext, changeMonth,
+  changeMonth, handleChangeCheckInOut, handleChangeGuests, handleDateDropDown,
+  handleGuestDropDown, handleOutsideDropDownClick, isBillVisible,
 }) => (
   <form>
     <BookItFields
-      availNights={availNights}
-      dateDropDownActive={dateDropDownActive}
+      changeMonth={changeMonth}
+      handleChangeCheckInOut={handleChangeCheckInOut}
+      handleChangeGuests={handleChangeGuests}
       handleDateDropDown={handleDateDropDown}
-      guestDropDownActive={guestDropDownActive}
       handleGuestDropDown={handleGuestDropDown}
       handleOutsideDropDownClick={handleOutsideDropDownClick}
-      maxGuests={maxGuests}
-      minNightStay={minNightStay}
-      checkIn={checkIn}
-      checkOut={checkOut}
-      guests={guests}
-      handleChangeGuests={handleChangeGuests}
-      handleChangeCheckInOut={handleChangeCheckInOut}
-      prevDateContext={prevDateContext}
-      curDateContext={curDateContext}
-      nextDateContext={nextDateContext}
-      changeMonth={changeMonth}
     />
     {isBillVisible &&
-    <BillSummary
-      nights={nights}
-      guests={guests}
-      billPricePerNight={billPricePerNight}
-      cleaningFee={cleaningFee}
-      serviceFee={serviceFee}
-    />
+    <BillSummary />
     }
-    <BookingButton isBillVisible={isBillVisible} />
+    <BookingButton />
     <DivNotChargedYet>
       <SmallInnerNotChargedYet>You won’t be charged yet</SmallInnerNotChargedYet>
     </DivNotChargedYet>
   </form>
 );
 
+function mapStateToProps(reduxState) {
+  return {
+    isBillVisible: reduxState.isBillVisible,
+  };
+}
+
 BookItForm.propTypes = {
-  availNights: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  dateDropDownActive: PropTypes.shape({
-    checkIn: PropTypes.bool,
-    checkOut: PropTypes.bool,
-  }).isRequired,
-  handleDateDropDown: PropTypes.func.isRequired,
-  guestDropDownActive: PropTypes.bool.isRequired,
-  handleGuestDropDown: PropTypes.func.isRequired,
-  maxGuests: PropTypes.number.isRequired,
-  minNightStay: PropTypes.number.isRequired,
-  handleOutsideDropDownClick: PropTypes.func.isRequired,
-  checkIn: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  checkOut: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  guests: PropTypes.number.isRequired,
-  handleChangeGuests: PropTypes.func.isRequired,
-  handleChangeCheckInOut: PropTypes.func.isRequired,
-  isBillVisible: PropTypes.bool.isRequired,
-  billPricePerNight: PropTypes.number.isRequired,
-  serviceFee: PropTypes.number.isRequired,
-  nights: PropTypes.number.isRequired,
-  cleaningFee: PropTypes.number.isRequired,
-  prevDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  curDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
-  nextDateContext: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
   changeMonth: PropTypes.func.isRequired,
+  handleChangeCheckInOut: PropTypes.func.isRequired,
+  handleChangeGuests: PropTypes.func.isRequired,
+  handleDateDropDown: PropTypes.func.isRequired,
+  handleGuestDropDown: PropTypes.func.isRequired,
+  handleOutsideDropDownClick: PropTypes.func.isRequired,
+  isBillVisible: PropTypes.bool.isRequired,
 };
 
 const DivNotChargedYet = styled.div`
@@ -110,4 +60,5 @@ const SmallInnerNotChargedYet = styled.small`
   padding-bottom: 0px;
   word-wrap: break-word;
 `;
-export default BookItForm;
+
+export default connect(mapStateToProps)(BookItForm);

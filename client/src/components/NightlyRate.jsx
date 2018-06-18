@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const NightlyRate = ({ avgNightlyRate }) => (
@@ -10,6 +11,12 @@ const NightlyRate = ({ avgNightlyRate }) => (
     </DivInnerContainer>
   </div>
 );
+
+function mapStateToProps(reduxState) {
+  return {
+    avgNightlyRate: reduxState.avgNightlyRate,
+  };
+}
 
 NightlyRate.propTypes = {
   avgNightlyRate: PropTypes.number.isRequired,
@@ -41,4 +48,4 @@ const PerNightSpan = RateSpan.extend`
 RateSpan.displayName = 'RateSpan';
 PerNightSpan.displayName = 'PerNightSpan';
 
-export default NightlyRate;
+export default connect(mapStateToProps)(NightlyRate);

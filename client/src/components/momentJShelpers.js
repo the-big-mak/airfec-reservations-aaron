@@ -56,7 +56,6 @@ module.exports = {
     let bool = true;
     const now = momentCheckIn.clone();
     while (now.isSameOrBefore(momentCheckOut)) {
-      // Expensive time complexity.
       if (!availNightsObj[moment(now).format('YYYY-MM-DD')]) {
         bool = false;
       }
@@ -68,7 +67,6 @@ module.exports = {
     const d = dateContext;
     let isActive = false;
     d.date(day);
-    // Expensive time complexity.
     if (availNightsObj[(moment(d).format('YYYY-MM-DD'))]) {
       isActive = true;
     }

@@ -3,39 +3,39 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DatePickerCalendarMonth from './DatePickerCalendarMonth';
 
-const DatePickerCalendarBody = ({ threeMonths, handleDateClick }) => (
+const DatePickerCalendarBody = ({ handleDateClick, threeMonths }) => (
   <DivOuterContainer>
     <DivPrevMonthContainer>
       <DatePickerCalendarMonth
-        monthYear={threeMonths.prev[0]}
-        monthWeekRows={threeMonths.prev[1]}
         handleDateClick={handleDateClick}
+        monthWeekRows={threeMonths.prev[1]}
+        monthYear={threeMonths.prev[0]}
       />
     </DivPrevMonthContainer>
     <DivCurMonthContainer>
       <DatePickerCalendarMonth
-        monthYear={threeMonths.cur[0]}
-        monthWeekRows={threeMonths.cur[1]}
         handleDateClick={handleDateClick}
+        monthWeekRows={threeMonths.cur[1]}
+        monthYear={threeMonths.cur[0]}
       />
     </DivCurMonthContainer>
     <DivNextMonthContainer>
       <DatePickerCalendarMonth
-        monthYear={threeMonths.next[0]}
-        monthWeekRows={threeMonths.next[1]}
         handleDateClick={handleDateClick}
+        monthWeekRows={threeMonths.next[1]}
+        monthYear={threeMonths.next[0]}
       />
     </DivNextMonthContainer>
   </DivOuterContainer>
 );
 
 DatePickerCalendarBody.propTypes = {
+  handleDateClick: PropTypes.func.isRequired,
   threeMonths: PropTypes.shape({
     prev: PropTypes.array,
     cur: PropTypes.array,
     next: PropTypes.array,
   }).isRequired,
-  handleDateClick: PropTypes.func.isRequired,
 };
 
 const DivOuterContainer = styled.div`

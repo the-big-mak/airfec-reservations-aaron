@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import GuestPickerCloseDropDown from './GuestPickerCloseDropDown';
 
@@ -11,6 +12,12 @@ const GuestPickerMaxDetails = ({ maxGuests }) => (
     <GuestPickerCloseDropDown />
   </div>
 );
+
+function mapStateToProps(reduxState) {
+  return {
+    maxGuests: reduxState.maxGuests,
+  };
+}
 
 GuestPickerMaxDetails.propTypes = {
   maxGuests: PropTypes.number.isRequired,
@@ -31,4 +38,4 @@ const DivText = styled.div`
   word-wrap: break-word;
 `;
 
-export default GuestPickerMaxDetails;
+export default connect(mapStateToProps)(GuestPickerMaxDetails);

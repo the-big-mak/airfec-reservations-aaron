@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DatePickerCalendarRowDayCell from './DatePickerCalendarRowDayCell';
 
-const DatePickerCalendarRow = ({ week, monthYear, handleDateClick }) => (
+const DatePickerCalendarRow = ({ handleDateClick, monthYear, week }) => (
   <TableRow>
     {week.map(day => (
       <DatePickerCalendarRowDayCell
-        key={Math.random()}
         day={day}
-        monthYear={monthYear}
         handleDateClick={handleDateClick}
+        key={Math.random()}
+        monthYear={monthYear}
       />))
     }
   </TableRow>
 );
 
 DatePickerCalendarRow.propTypes = {
-  week: PropTypes.arrayOf(PropTypes.object).isRequired,
-  monthYear: PropTypes.string.isRequired,
   handleDateClick: PropTypes.func.isRequired,
+  monthYear: PropTypes.string.isRequired,
+  week: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const TableRow = styled.tr`

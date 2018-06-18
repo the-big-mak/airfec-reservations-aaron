@@ -5,7 +5,8 @@ import GuestPickerRowLabel from './GuestPickerRowLabel';
 import GuestPickerRowPicker from './GuestPickerRowPicker';
 
 const GuestPickerRow = ({
-  label, value, secondaryLabel, handleAddGuests, handleMinusGuests, totalGuests, maxGuests,
+  handleAddGuests, handleMinusGuests, label,
+  secondaryLabel, totalGuests, value,
 }) => (
   <DivOuterContainer secondaryLabel={secondaryLabel}>
     <DivInnerContainer>
@@ -15,12 +16,11 @@ const GuestPickerRow = ({
           secondaryLabel={secondaryLabel}
         />
         <GuestPickerRowPicker
-          value={value}
-          label={label}
           handleAddGuests={handleAddGuests}
           handleMinusGuests={handleMinusGuests}
+          label={label}
           totalGuests={totalGuests}
-          maxGuests={maxGuests}
+          value={value}
         />
       </DivTableContainer>
     </DivInnerContainer>
@@ -28,13 +28,12 @@ const GuestPickerRow = ({
 );
 
 GuestPickerRow.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  secondaryLabel: PropTypes.string.isRequired,
   handleAddGuests: PropTypes.func.isRequired,
   handleMinusGuests: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  secondaryLabel: PropTypes.string.isRequired,
   totalGuests: PropTypes.number.isRequired,
-  maxGuests: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`

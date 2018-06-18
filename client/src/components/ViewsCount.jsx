@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const ViewsCount = ({ isBookItFixed, views }) => (
@@ -18,13 +19,20 @@ const ViewsCount = ({ isBookItFixed, views }) => (
   </DivOuterContainer>
 );
 
+function mapStateToProps(reduxState) {
+  return {
+    isBookItFixed: reduxState.isBookItFixed,
+    views: reduxState.views,
+  };
+}
+
 ViewsCount.propTypes = {
   isBookItFixed: PropTypes.bool.isRequired,
   views: PropTypes.number.isRequired,
 };
 
 const DivOuterContainer = styled.div`
-  ${props => props.isBookItFixed ? 'max-height: 300px; opacity: 1' : 'max-height: 0px; opacity: 0;'}
+  ${props => (props.isBookItFixed ? 'max-height: 300px; opacity: 1' : 'max-height: 0px; opacity: 0;')}
   overflow: hidden;
   transition: max-height 0.8s, opacity 0.8s linear 0.2s;
 `;
@@ -69,4 +77,4 @@ const DivText = styled.div`
   margin-top: 6px;
 `;
 
-export default ViewsCount;
+export default connect(mapStateToProps)(ViewsCount);

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import styled from 'styled-components';
 import momentHlpr from './momentJShelpers';
+
+// UNFINISHED TWO MONTH DATE CALENDAR MODULE
 
 export default class DateTwoMonths extends Component {
   constructor(props) {

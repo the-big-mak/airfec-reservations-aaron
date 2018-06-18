@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DatePickerCalendarRow from './DatePickerCalendarRow';
 
-const DatePickerCalendarMonth = ({ monthWeekRows, monthYear, handleDateClick }) => (
+const DatePickerCalendarMonth = ({ handleDateClick, monthWeekRows, monthYear }) => (
   <DivOuterContainer>
     <DivMonthHeaderContainer>
       <strong>{monthYear}</strong>
@@ -13,9 +13,9 @@ const DatePickerCalendarMonth = ({ monthWeekRows, monthYear, handleDateClick }) 
         {monthWeekRows.map(wk =>
           (<DatePickerCalendarRow
             key={Math.random()}
-            week={wk}
-            monthYear={monthYear}
             handleDateClick={handleDateClick}
+            monthYear={monthYear}
+            week={wk}
           />))
         }
       </tbody>
@@ -24,9 +24,9 @@ const DatePickerCalendarMonth = ({ monthWeekRows, monthYear, handleDateClick }) 
 );
 
 DatePickerCalendarMonth.propTypes = {
-  monthYear: PropTypes.string.isRequired,
-  monthWeekRows: PropTypes.arrayOf(PropTypes.array).isRequired,
   handleDateClick: PropTypes.func.isRequired,
+  monthWeekRows: PropTypes.arrayOf(PropTypes.array).isRequired,
+  monthYear: PropTypes.string.isRequired,
 };
 
 const DivOuterContainer = styled.div`

@@ -45,7 +45,6 @@ const SpanHalfStar = styled.span`
   ${props => props.fill && 'color: #D8D8D8;'}
 `;
 
-
 const VectorStar = styled.svg`
   display: block; 
   fill: currentcolor;
