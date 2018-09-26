@@ -43,8 +43,8 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
-npm install
+npm i -g webpack
+npm i
 ```
 
 ### Initializing Data
@@ -73,5 +73,5 @@ mysql -u [username] -p < database/2-fakedata.sql
 
 To start the server on port 3004, run: 
 ```
-npm run start
+npm start
 ```
