@@ -3,8 +3,7 @@
 > Inspired by AirBnB.
 
 <p align='center'>
-  <img src="https://imgur.com/ZiFvTe8" alt="AirFEC Reservations Microservice demo" width="240" height="180" border="10">
-  <blockquote class="imgur-embed-pub" lang="en" data-id="ZiFvTe8"><a href="//imgur.com/ZiFvTe8"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+  <img src="./public/AirFECReservationsDemo.gif" alt="AirFEC Reservations Microservice demo">
 </p>
 
 ## Related Projects
