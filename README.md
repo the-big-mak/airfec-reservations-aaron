@@ -2,6 +2,10 @@
 
 > Inspired by AirBnB.
 
+<p align='center'>
+  <img src="https://imgur.com/ZiFvTe8" alt="AirFEC Reservations Microservice demo">
+</p>
+
 ## Related Projects
 
   - https://github.com/the-big-mak/airfec-photos-vlad
